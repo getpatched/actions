@@ -1,6 +1,7 @@
 """Build and smoke-test a validated package recipe in disposable containers."""
 
 import argparse
+import base64
 import json
 from pathlib import Path
 import re
@@ -52,8 +53,20 @@ def mount(source, destination):
     return ["--mount", f"type=bind,src={source},dst={destination},readonly"]
 
 
-def stage(name):
+def stage(reports, name):
+    (reports / "stage").write_text(name + "\n")
     print(f"::notice title=Package CI stage::{name}", flush=True)
+
+
+def pinned_apt_sources(source_list):
+    # Timestamped Debian snapshots intentionally retain historical Release metadata.
+    # Keep signature and checksum verification, including expiry for live archives.
+    source_list = re.sub(
+        r"^(deb(?:-src)? \[arch=[a-z0-9]+)(\] https://snapshot(?:-fastly)?\.debian\.org"
+        r"/archive/debian(?:-security)?/[0-9]{8}T[0-9]{6}Z/ )",
+        r"\1 check-valid-until=no\2", source_list, flags=re.MULTILINE,
+    )
+    return base64.b64encode(source_list.encode()).decode()
 
 
 def test_dependencies(recipe, target, filename, recipe_path):
@@ -80,7 +93,7 @@ def main():
     sys.path.insert(0, str(platform / "scripts"))
     from build_environment import offline_resolver_config, runner_ca_bundle
     from package_recipe import download_source_assets, recipe_path
-    from platform_policy import apt_source_list_b64, target_profile
+    from platform_policy import apt_source_list, target_profile
 
     target = policy["targetId"]
     profile = target_profile(json.loads((platform / "packages.json").read_text()), target)
@@ -101,13 +114,13 @@ def main():
     with tempfile.TemporaryDirectory(prefix="package-ci-") as folder:
         temp = Path(folder)
         try:
-            stage("Fetch and verify pinned source")
+            stage(reports, "source download and checksum verification")
             download_source_assets(policy, temp / "source")
-            stage("Prepare the pinned build environment")
+            stage(reports, "pinned build environment")
             run("docker", "build", "--platform", platform_arg, "-t", image,
                 "-f", str(platform / "build/packaging.Containerfile"), *ca_args,
                 "--build-arg", f"BASE_IMAGE={profile['baseImage']}",
-                "--build-arg", f"APT_SOURCES_B64={apt_source_list_b64(profile)}",
+                "--build-arg", f"APT_SOURCES_B64={pinned_apt_sources(apt_source_list(profile))}",
                 "--build-arg", f"SOURCE_PACKAGE={policy['source']}",
                 "--build-arg", f"EXPECTED_VERSION={policy['baseVersion']}",
                 "--build-arg", f"BINARY_PACKAGES={' '.join(binaries)}",
@@ -118,7 +131,7 @@ def main():
                 run("docker", "build", "--platform", platform_arg, "-t", image,
                     "--build-arg", f"BUILDER_IMAGE={image}",
                     "--build-arg", f"TEST_DEPENDENCIES={' '.join(dependencies)}", str(temp))
-            stage("Apply patches, build and run tests")
+            stage(reports, "start build container")
             isolated = ["--network", "none", "--security-opt", "no-new-privileges:true",
                         "--pids-limit", "512", "--cap-drop", "NET_RAW"]
             try:
@@ -130,9 +143,12 @@ def main():
                     image, "bash", "/build.sh", target)
             finally:
                 try:
-                    export_file(job, "/reports/stage", reports / "stage", 128)
+                    container_stage = temp / "stage"
+                    export_file(job, "/reports/stage", container_stage, 128)
+                    shutil.copyfile(container_stage, reports / "stage")
                 except (ValueError, tarfile.TarError):
                     pass
+            stage(reports, "binary selection")
             selected = temp / "install"
             selected.mkdir()
             for binary in binaries:
@@ -145,13 +161,14 @@ def main():
                         continue
                 if len(list(selected.glob(f"{binary}_*.deb"))) != 1:
                     raise ValueError(f"Expected exactly one output for {binary}")
-            stage("Install candidate packages in a clean target container")
+            stage(reports, "clean install dependency preparation")
             shutil.copyfile(script_dir / "install.Containerfile", temp / "Dockerfile")
             run("docker", "build", "--platform", platform_arg, "-t", install, *ca_args,
                 "--build-arg", f"BASE_IMAGE={profile['baseImage']}",
-                "--build-arg", f"APT_SOURCES_B64={apt_source_list_b64(profile, include_sources=False)}",
+                "--build-arg", f"APT_SOURCES_B64={pinned_apt_sources(apt_source_list(profile, include_sources=False))}",
                 "--build-arg", f"SMOKE_DEPENDENCIES={' '.join(smoke_dependencies)}",
                 "-f", str(temp / "Dockerfile"), str(selected))
+            stage(reports, "clean install and smoke test")
             run_recipe("docker", "run", "--rm", "--platform", platform_arg, *isolated,
                 *mount(selected, "/candidate"), *mount(recipe, "/recipe"),
                 *mount(script_dir / "smoke.sh", "/smoke.sh"), install,

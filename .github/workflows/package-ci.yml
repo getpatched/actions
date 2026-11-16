@@ -94,7 +94,7 @@ jobs:
               patch) stage='patch application' ;;
               'build and distro tests') stage='build or distro tests' ;;
               'additional upstream tests') stage='additional upstream tests' ;;
-              built) stage='binary selection, install or installed smoke test' ;;
+              'source download and checksum verification'|'pinned build environment'|'start build container'|'binary selection'|'clean install dependency preparation'|'clean install and smoke test') stage="$(cat "$report")" ;;
             esac
           fi
           if [[ "$DRIFT" == true ]]; then stage='source drift check'; fi
