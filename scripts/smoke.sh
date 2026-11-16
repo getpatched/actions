@@ -4,6 +4,8 @@ target=$1
 version=$2
 read -r -a dependencies <<< "$3"
 shift 3
+mkdir -p /reports
+echo "clean install" > /reports/stage
 echo "::group::Install candidate packages"
 # Let APT resolve absolute paths for local archives. The container has no network.
 apt-get -o Acquire::Retries=0 -y install --no-install-recommends /candidate/*.deb "${dependencies[@]}"
@@ -14,6 +16,7 @@ done
 test -z "$(dpkg --audit)"
 echo "::endgroup::"
 if [[ -f /recipe/ci/$target/smoke.sh ]]; then
+  echo "installed package smoke test" > /reports/stage
   echo "::group::Run installed package smoke tests"
   bash "/recipe/ci/$target/smoke.sh"
   echo "::endgroup::"

@@ -45,6 +45,15 @@ def export_file(container, remote, destination, limit):
                 process.kill()
 
 
+def record_container_stage(container, work, reports):
+    try:
+        container_stage = work / f"{container}-stage"
+        export_file(container, "/reports/stage", container_stage, 128)
+        shutil.copyfile(container_stage, reports / "stage")
+    except (ValueError, tarfile.TarError):
+        pass
+
+
 def docker_cleanup(*command):
     subprocess.run(("docker", *command), stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
@@ -138,12 +147,7 @@ def main():
                     *mount(platform / "verification/materialize-package.py", "/materialize-package.py"),
                     image, "bash", "/build.sh", target)
             finally:
-                try:
-                    container_stage = temp / "stage"
-                    export_file(job, "/reports/stage", container_stage, 128)
-                    shutil.copyfile(container_stage, reports / "stage")
-                except (ValueError, tarfile.TarError):
-                    pass
+                record_container_stage(job, temp, reports)
             stage(reports, "binary selection")
             selected = temp / "install"
             selected.mkdir()
@@ -164,16 +168,19 @@ def main():
                 "--build-arg", f"APT_SOURCES_B64={pinned_apt_sources(apt_source_list(profile, include_sources=False))}",
                 "--build-arg", f"SMOKE_DEPENDENCIES={' '.join(smoke_dependencies)}",
                 "-f", str(temp / "Dockerfile"), str(selected))
-            stage(reports, "clean install and smoke test")
-            run_recipe("docker", "run", "--rm", "--platform", platform_arg, *isolated,
-                *mount(selected, "/candidate"), *mount(recipe, "/recipe"),
-                *mount(script_dir / "smoke.sh", "/smoke.sh"), install,
-                "bash", "/smoke.sh", target, policy["version"],
-                " ".join(smoke_dependencies), *binaries)
+            stage(reports, "clean install")
+            try:
+                run_recipe("docker", "run", "--name", install, "--platform", platform_arg, *isolated,
+                    *mount(selected, "/candidate"), *mount(recipe, "/recipe"),
+                    *mount(script_dir / "smoke.sh", "/smoke.sh"), install,
+                    "bash", "/smoke.sh", target, policy["version"],
+                    " ".join(smoke_dependencies), *binaries)
+            finally:
+                record_container_stage(install, temp, reports)
             if not (recipe / f"ci/{target}/smoke.sh").is_file():
                 print(f"::warning::No ordinary-use smoke hook configured for {target}")
         finally:
-            docker_cleanup("rm", "-f", job)
+            docker_cleanup("rm", "-f", job, install)
             docker_cleanup("image", "rm", install, image)
 
 
