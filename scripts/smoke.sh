@@ -7,8 +7,18 @@ shift 3
 mkdir -p /reports
 echo "clean install" > /reports/stage
 echo "::group::Install candidate packages"
-# Let APT resolve absolute paths for local archives. The container has no network.
-apt-get -o Acquire::Retries=0 -y install --no-install-recommends /candidate/*.deb "${dependencies[@]}"
+# Fetch the candidate through signed metadata in this offline, clean client.
+printf '%s\n' 'deb [signed-by=/candidate/archive-keyring.gpg] file:/candidate ./' \
+  > /etc/apt/sources.list.d/getpatched-test.list
+apt-get -o Dir::Etc::sourcelist=sources.list.d/getpatched-test.list \
+  -o Dir::Etc::sourceparts=- -o APT::Get::List-Cleanup=false \
+  -o Acquire::AllowInsecureRepositories=false update
+candidate_requests=()
+for package in "$@"; do
+  candidate_requests+=("$package=$version")
+done
+apt-get -o Acquire::Retries=0 -y install --no-install-recommends \
+  "${candidate_requests[@]}" "${dependencies[@]}"
 verify_install() {
   local audit
   for package in "$@"; do

@@ -116,6 +116,7 @@ def main():
     image = f"pkg-ci-{uuid.uuid4().hex[:12]}"
     job = image + "-build"
     install = image + "-install"
+    signer = image + "-signer"
     for hook in ("upstream.sh", "smoke.sh", "autopkgtest.sh"):
         relative = f"ci/{target}/{hook}"
         if (recipe / relative).exists() or (recipe / relative).is_symlink():
@@ -166,6 +167,14 @@ def main():
                         continue
                 if len(list(selected.glob(f"{binary}_*.deb"))) != 1:
                     raise ValueError(f"Expected exactly one output for {binary}")
+            stage(reports, "sign test APT repository")
+            run_recipe("docker", "run", "--name", signer, "--platform", platform_arg, *isolated,
+                *mount(selected, "/candidate"),
+                *mount(script_dir / "sign-test-repository.sh", "/sign-repository.sh"),
+                image, "bash", "/sign-repository.sh")
+            for filename in ("Packages", "InRelease", "archive-keyring.gpg", "signed-apt.txt"):
+                export_file(signer, f"/repository/{filename}", selected / filename, 2 * 1024 * 1024)
+                (selected / filename).chmod(0o644)
             stage(reports, "clean install dependency preparation")
             shutil.copyfile(script_dir / "install.Containerfile", temp / "Dockerfile")
             run("docker", "build", "--platform", platform_arg, "-t", install, *ca_args,
@@ -185,10 +194,11 @@ def main():
             finally:
                 record_container_report(install, temp, reports, "stage", 128)
                 record_container_report(install, temp, reports, "autopkgtest-summary.txt", 64 * 1024)
+            shutil.copyfile(selected / "signed-apt.txt", reports / "signed-apt.txt")
             if not (recipe / f"ci/{target}/smoke.sh").is_file():
                 print(f"::warning::No ordinary-use smoke hook configured for {target}")
         finally:
-            docker_cleanup("rm", "-f", job, install)
+            docker_cleanup("rm", "-f", job, install, signer)
             docker_cleanup("image", "rm", install, image)
 
 
