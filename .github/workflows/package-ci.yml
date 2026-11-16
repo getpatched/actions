@@ -12,6 +12,10 @@ on:
         default: false
         type: boolean
 
+      recipe_ref:
+        description: Full branch ref to monitor in drift mode
+        type: string
+
 permissions:
   contents: read
 
@@ -21,15 +25,31 @@ jobs:
     runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.matrix.outputs.matrix }}
+      recipe_commit: ${{ steps.recipe_commit.outputs.sha }}
     steps:
       - name: Validate tooling ref
         env:
           TOOLING_REF: ${{ inputs.tooling_ref }}
         run: '[[ "$TOOLING_REF" =~ ^[0-9a-f]{40}$ ]]'
+      - name: Validate monitored branch
+        env:
+          RECIPE_REF: ${{ inputs.recipe_ref }}
+          DRIFT: ${{ inputs.drift }}
+        run: |
+          if [[ -n "$RECIPE_REF" ]]; then
+            [[ "$DRIFT" == true && "$RECIPE_REF" == refs/heads/* ]]
+            git check-ref-format "$RECIPE_REF"
+          fi
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
+          ref: ${{ inputs.recipe_ref }}
           path: recipe
           persist-credentials: false
+      - name: Record recipe revision
+        id: recipe_commit
+        run: |
+          sha=$(git -C recipe rev-parse --verify HEAD)
+          printf 'sha=%s\n' "$sha" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: getpatched/actions
@@ -57,6 +77,7 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
+          ref: ${{ needs.recipe.outputs.recipe_commit }}
           path: recipe
           persist-credentials: false
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
