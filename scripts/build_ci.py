@@ -92,10 +92,18 @@ def test_dependencies(recipe, target, filename, recipe_path):
     return dependencies
 
 
+def collect_inventory(container, root):
+    (root / "etc").mkdir(parents=True)
+    (root / "var/lib/dpkg").mkdir(parents=True)
+    export_file(container, "/reports/os-release", root / "etc/os-release", 16 * 1024)
+    export_file(container, "/reports/dpkg-status", root / "var/lib/dpkg/status", 16 * 1024 * 1024)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     for flag in ("platform", "recipe", "policy", "reports"):
         parser.add_argument(f"--{flag}", type=Path, required=True)
+    parser.add_argument("--paired-scan", action="store_true")
     args = parser.parse_args()
     platform = args.platform.resolve()
     recipe = args.recipe.resolve()
@@ -117,6 +125,8 @@ def main():
     job = image + "-build"
     install = image + "-install"
     signer = image + "-signer"
+    baseline = image + "-baseline"
+    candidate_scan = image + "-candidate-scan"
     for hook in ("upstream.sh", "smoke.sh", "compatibility.sh", "autopkgtest.sh"):
         relative = f"ci/{target}/{hook}"
         if (recipe / relative).exists() or (recipe / relative).is_symlink():
@@ -178,12 +188,15 @@ def main():
             for filename in ("Packages", "InRelease", "archive-keyring.gpg", "signed-apt.txt"):
                 export_file(signer, f"/repository/{filename}", selected / filename, 2 * 1024 * 1024)
                 (selected / filename).chmod(0o644)
+            baseline_requests = ([f"{binary}={policy['baseVersion']}" for binary in binaries]
+                                 if args.paired_scan else [])
             stage(reports, "clean install dependency preparation")
             shutil.copyfile(script_dir / "install.Containerfile", temp / "Dockerfile")
             run("docker", "build", "--platform", platform_arg, "-t", install, *ca_args,
                 "--build-arg", f"BASE_IMAGE={profile['baseImage']}",
                 "--build-arg", f"APT_SOURCES_B64={pinned_apt_sources(apt_source_list(profile, include_sources=False))}",
                 "--build-arg", f"SMOKE_DEPENDENCIES={' '.join(smoke_dependencies)}",
+                "--build-arg", f"BASELINE_REQUESTS={' '.join(baseline_requests)}",
                 "-f", str(temp / "Dockerfile"), str(selected))
             stage(reports, "clean install")
             try:
@@ -199,10 +212,29 @@ def main():
                 record_container_report(install, temp, reports, "autopkgtest-summary.txt", 64 * 1024)
                 record_container_report(install, temp, reports, "compatibility.txt", 4096)
             shutil.copyfile(selected / "signed-apt.txt", reports / "signed-apt.txt")
+            if args.paired_scan:
+                stage(reports, "paired vulnerability scans")
+                run_recipe("docker", "run", "--name", baseline, "--platform", platform_arg, *isolated,
+                    *mount(script_dir / "installed-inventory.sh", "/installed-inventory.sh"),
+                    install, "bash", "-ec",
+                    'apt-get -o Acquire::Retries=0 -y install --no-install-recommends "$@"; '
+                    'test -z "$(dpkg --audit)"; bash /installed-inventory.sh',
+                    "baseline", *baseline_requests, *smoke_dependencies)
+                collect_inventory(baseline, temp / "baseline")
+                run_recipe("docker", "run", "--name", candidate_scan, "--platform", platform_arg,
+                    *isolated, "--env", "INVENTORY_ONLY=1", *mount(selected, "/candidate"),
+                    *mount(script_dir / "smoke.sh", "/smoke.sh"),
+                    *mount(script_dir / "installed-inventory.sh", "/installed-inventory.sh"),
+                    install, "bash", "/smoke.sh", target, policy["version"],
+                    " ".join(smoke_dependencies), *binaries)
+                collect_inventory(candidate_scan, temp / "candidate")
+                run(sys.executable, str(script_dir / "scan-pair.py"),
+                    "--before", str(temp / "baseline"), "--after", str(temp / "candidate"),
+                    "--reports", str(reports), "--policy", str(args.policy.resolve()))
             if not (recipe / f"ci/{target}/smoke.sh").is_file():
                 print(f"::warning::No ordinary-use smoke hook configured for {target}")
         finally:
-            docker_cleanup("rm", "-f", job, install, signer)
+            docker_cleanup("rm", "-f", job, install, signer, baseline, candidate_scan)
             docker_cleanup("image", "rm", install, image)
 
 

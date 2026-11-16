@@ -12,6 +12,11 @@ on:
         default: false
         type: boolean
 
+      paired_scan:
+        description: Compare passive OS vulnerability scans of the exact installed baseline and candidate
+        type: boolean
+        default: false
+
       recipe_ref:
         description: Full branch ref to monitor in drift mode
         type: string
@@ -98,7 +103,12 @@ jobs:
         run: python3 tooling/scripts/recipe_ci.py --platform platform --recipe recipe --repository "$GITHUB_REPOSITORY" --target "$TARGET" > "$RUNNER_TEMP/policy.json"
       - name: Build, test and install
         if: ${{ !inputs.drift }}
-        run: python3 tooling/scripts/build_ci.py --platform platform --recipe recipe --policy "$RUNNER_TEMP/policy.json" --reports "$RUNNER_TEMP/package-reports"
+        env:
+          PAIRED_SCAN: ${{ inputs.paired_scan }}
+        run: |
+          flags=()
+          if [[ "$PAIRED_SCAN" == true ]]; then flags+=(--paired-scan); fi
+          python3 tooling/scripts/build_ci.py --platform platform --recipe recipe --policy "$RUNNER_TEMP/policy.json" --reports "$RUNNER_TEMP/package-reports" "${flags[@]}"
       - name: Upload test results
         continue-on-error: true
         if: ${{ !cancelled() && !inputs.drift }}
@@ -110,6 +120,7 @@ jobs:
             ${{ runner.temp }}/package-reports/autopkgtest-summary.txt
             ${{ runner.temp }}/package-reports/signed-apt.txt
             ${{ runner.temp }}/package-reports/compatibility.txt
+            ${{ runner.temp }}/package-reports/vulnerability-*.json
           if-no-files-found: ignore
           retention-days: 14
       - name: Check source and dependency drift
@@ -128,7 +139,7 @@ jobs:
               patch) stage='patch application' ;;
               'build and distro tests') stage='build or distro tests' ;;
               'additional upstream tests') stage='additional upstream tests' ;;
-              'source download and checksum verification'|'pinned build environment'|'start build container'|'binary selection'|'sign test APT repository'|'clean install dependency preparation'|'clean install'|'installed package smoke test'|'installed package compatibility'|'installed distro tests') stage="$(cat "$report")" ;;
+              'source download and checksum verification'|'pinned build environment'|'start build container'|'binary selection'|'sign test APT repository'|'clean install dependency preparation'|'clean install'|'installed package smoke test'|'installed package compatibility'|'installed distro tests'|'paired vulnerability scans') stage="$(cat "$report")" ;;
             esac
           fi
           if [[ "$DRIFT" == true ]]; then stage='source drift check'; fi

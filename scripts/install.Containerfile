@@ -3,6 +3,7 @@ ARG BASE_IMAGE
 FROM ${BASE_IMAGE}
 ARG APT_SOURCES_B64
 ARG SMOKE_DEPENDENCIES
+ARG BASELINE_REQUESTS
 ENV DEBIAN_FRONTEND=noninteractive
 RUN --mount=type=secret,id=runner-ca,target=/tmp/runner-ca,mode=0444,required=true \
     --mount=type=bind,source=.,target=/candidate,readonly \
@@ -11,4 +12,8 @@ RUN --mount=type=secret,id=runner-ca,target=/tmp/runner-ca,mode=0444,required=tr
     printf '%s' "$APT_SOURCES_B64" | base64 -d > /etc/apt/sources.list; \
     apt-get -o Acquire::https::CAInfo=/tmp/runner-ca update; \
     apt-get -o Acquire::https::CAInfo=/tmp/runner-ca --download-only -y \
-      install --no-install-recommends /candidate/*.deb $SMOKE_DEPENDENCIES
+      install --no-install-recommends /candidate/*.deb $SMOKE_DEPENDENCIES; \
+    if [ -n "$BASELINE_REQUESTS" ]; then \
+      apt-get -o Acquire::https::CAInfo=/tmp/runner-ca --download-only -y \
+        install --no-install-recommends $BASELINE_REQUESTS $SMOKE_DEPENDENCIES; \
+    fi
