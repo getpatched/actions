@@ -113,12 +113,13 @@ def main():
     image = f"pkg-ci-{uuid.uuid4().hex[:12]}"
     job = image + "-build"
     install = image + "-install"
-    for hook in ("upstream.sh", "smoke.sh"):
+    for hook in ("upstream.sh", "smoke.sh", "autopkgtest.sh"):
         relative = f"ci/{target}/{hook}"
         if (recipe / relative).exists() or (recipe / relative).is_symlink():
             recipe_path(recipe, relative)
     dependencies = test_dependencies(recipe, target, "dependencies.txt", recipe_path)
     smoke_dependencies = test_dependencies(recipe, target, "smoke-dependencies.txt", recipe_path)
+    distro_test = (recipe / f"ci/{target}/autopkgtest.sh").is_file()
 
     with tempfile.TemporaryDirectory(prefix="package-ci-") as folder:
         temp = Path(folder)
@@ -172,7 +173,9 @@ def main():
             try:
                 run_recipe("docker", "run", "--name", install, "--platform", platform_arg, *isolated,
                     *mount(selected, "/candidate"), *mount(recipe, "/recipe"),
-                    *mount(script_dir / "smoke.sh", "/smoke.sh"), install,
+                    *mount(script_dir / "smoke.sh", "/smoke.sh"),
+                    *(mount(temp / "source", "/originals") if distro_test else []),
+                    install,
                     "bash", "/smoke.sh", target, policy["version"],
                     " ".join(smoke_dependencies), *binaries)
             finally:
