@@ -16,6 +16,9 @@ echo "build and distro tests" > /reports/stage
 dpkg-buildpackage -b -us -uc -j1
 cp /build/*.buildinfo /reports/
 if [[ -f /recipe/ci/$1/upstream.sh ]]; then
+  # dpkg-buildpackage may unapply quilt patches during its after-build hook.
+  echo "patch" > /reports/stage
+  dpkg-source --before-build .
   echo "additional upstream tests" > /reports/stage
   bash "/recipe/ci/$1/upstream.sh"
 else
