@@ -117,20 +117,16 @@ def main():
             stage(reports, "source download and checksum verification")
             download_source_assets(policy, temp / "source")
             stage(reports, "pinned build environment")
+            descriptors = temp / "descriptors"
+            descriptors.mkdir()
+            for descriptor in (temp / "source").glob("*.dsc"):
+                shutil.copyfile(descriptor, descriptors / descriptor.name)
             run("docker", "build", "--platform", platform_arg, "-t", image,
-                "-f", str(platform / "build/packaging.Containerfile"), *ca_args,
+                "-f", str(script_dir / "build.Containerfile"), *ca_args,
                 "--build-arg", f"BASE_IMAGE={profile['baseImage']}",
-                "--build-arg", f"APT_SOURCES_B64={pinned_apt_sources(apt_source_list(profile))}",
-                "--build-arg", f"SOURCE_PACKAGE={policy['source']}",
-                "--build-arg", f"EXPECTED_VERSION={policy['baseVersion']}",
-                "--build-arg", f"BINARY_PACKAGES={' '.join(binaries)}",
-                "--build-arg", "BUILDER_PACKAGES=",
-                str(temp / "source"))
-            if dependencies:
-                shutil.copyfile(script_dir / "test-deps.Containerfile", temp / "Dockerfile")
-                run("docker", "build", "--platform", platform_arg, "-t", image,
-                    "--build-arg", f"BUILDER_IMAGE={image}",
-                    "--build-arg", f"TEST_DEPENDENCIES={' '.join(dependencies)}", str(temp))
+                "--build-arg", f"APT_SOURCES_B64={pinned_apt_sources(apt_source_list(profile, include_sources=False))}",
+                "--build-arg", f"TEST_DEPENDENCIES={' '.join(dependencies)}",
+                str(descriptors))
             stage(reports, "start build container")
             isolated = ["--network", "none", "--security-opt", "no-new-privileges:true",
                         "--pids-limit", "512", "--cap-drop", "NET_RAW"]
