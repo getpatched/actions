@@ -197,6 +197,7 @@ def main():
                 "--build-arg", f"BASE_IMAGE={profile['baseImage']}",
                 "--build-arg", f"APT_SOURCES_B64={pinned_apt_sources(apt_source_list(profile, include_sources=False))}",
                 "--build-arg", f"SMOKE_DEPENDENCIES={' '.join(smoke_dependencies)}",
+                "--build-arg", "CANDIDATE_REQUESTS=" + " ".join(f"{binary}={policy['version']}" for binary in binaries),
                 "--build-arg", f"BASELINE_REQUESTS={' '.join(baseline_requests)}",
                 "-f", str(temp / "Dockerfile"), str(selected))
             stage(reports, "clean install")
