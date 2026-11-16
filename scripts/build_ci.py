@@ -117,12 +117,15 @@ def main():
     job = image + "-build"
     install = image + "-install"
     signer = image + "-signer"
-    for hook in ("upstream.sh", "smoke.sh", "autopkgtest.sh"):
+    for hook in ("upstream.sh", "smoke.sh", "compatibility.sh", "autopkgtest.sh"):
         relative = f"ci/{target}/{hook}"
         if (recipe / relative).exists() or (recipe / relative).is_symlink():
             recipe_path(recipe, relative)
     dependencies = test_dependencies(recipe, target, "dependencies.txt", recipe_path)
     smoke_dependencies = test_dependencies(recipe, target, "smoke-dependencies.txt", recipe_path)
+    if (recipe / f"ci/{target}/compatibility.sh").is_file():
+        smoke_dependencies = list(dict.fromkeys(smoke_dependencies + test_dependencies(
+            recipe, target, "compatibility-dependencies.txt", recipe_path)))
     distro_test = (recipe / f"ci/{target}/autopkgtest.sh").is_file()
 
     with tempfile.TemporaryDirectory(prefix="package-ci-") as folder:
@@ -194,6 +197,7 @@ def main():
             finally:
                 record_container_report(install, temp, reports, "stage", 128)
                 record_container_report(install, temp, reports, "autopkgtest-summary.txt", 64 * 1024)
+                record_container_report(install, temp, reports, "compatibility.txt", 4096)
             shutil.copyfile(selected / "signed-apt.txt", reports / "signed-apt.txt")
             if not (recipe / f"ci/{target}/smoke.sh").is_file():
                 print(f"::warning::No ordinary-use smoke hook configured for {target}")

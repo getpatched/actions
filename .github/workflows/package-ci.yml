@@ -109,6 +109,7 @@ jobs:
             ${{ runner.temp }}/package-reports/upstream-junit.xml
             ${{ runner.temp }}/package-reports/autopkgtest-summary.txt
             ${{ runner.temp }}/package-reports/signed-apt.txt
+            ${{ runner.temp }}/package-reports/compatibility.txt
           if-no-files-found: ignore
           retention-days: 14
       - name: Check source and dependency drift
@@ -127,7 +128,7 @@ jobs:
               patch) stage='patch application' ;;
               'build and distro tests') stage='build or distro tests' ;;
               'additional upstream tests') stage='additional upstream tests' ;;
-              'source download and checksum verification'|'pinned build environment'|'start build container'|'binary selection'|'sign test APT repository'|'clean install dependency preparation'|'clean install'|'installed package smoke test'|'installed distro tests') stage="$(cat "$report")" ;;
+              'source download and checksum verification'|'pinned build environment'|'start build container'|'binary selection'|'sign test APT repository'|'clean install dependency preparation'|'clean install'|'installed package smoke test'|'installed package compatibility'|'installed distro tests') stage="$(cat "$report")" ;;
             esac
           fi
           if [[ "$DRIFT" == true ]]; then stage='source drift check'; fi

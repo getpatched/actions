@@ -39,6 +39,16 @@ if [[ -f /recipe/ci/$target/smoke.sh ]]; then
 else
   echo "::warning::No ordinary-use smoke hook configured for $target; exact installation verified"
 fi
+if [[ -f /recipe/ci/$target/compatibility.sh ]]; then
+  echo "installed package compatibility" > /reports/stage
+  echo "::group::Run installed package compatibility check"
+  bash "/recipe/ci/$target/compatibility.sh"
+  verify_install "$@"
+  printf 'Compatibility hook passed for %s (%s)\n' "$target" "$version" > /reports/compatibility.txt
+  echo "::endgroup::"
+else
+  printf 'No compatibility hook configured for %s\n' "$target" > /reports/compatibility.txt
+fi
 if [[ -f /recipe/ci/$target/autopkgtest.sh ]]; then
   echo "installed distro tests" > /reports/stage
   echo "::group::Run installed distro tests"
