@@ -31,7 +31,7 @@ verify_install() {
 verify_install "$@"
 echo "::endgroup::"
 if [[ "${INVENTORY_ONLY:-}" == 1 ]]; then
-  exec bash /installed-inventory.sh
+  exec bash /installed-inventory.sh "$target"
 fi
 if [[ -f /recipe/ci/$target/smoke.sh ]]; then
   echo "installed package smoke test" > /reports/stage

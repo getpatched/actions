@@ -92,10 +92,11 @@ def test_dependencies(recipe, target, filename, recipe_path):
     return dependencies
 
 
-def collect_inventory(container, root):
+def collect_inventory(container, root, target):
     (root / "etc").mkdir(parents=True)
     (root / "var/lib/dpkg").mkdir(parents=True)
-    export_file(container, "/reports/os-release", root / "etc/os-release", 16 * 1024)
+    release_name = {"ubuntu": "lsb-release", "debian": "debian_version"}[target.split("-", 1)[0]]
+    export_file(container, "/reports/distro-release", root / "etc" / release_name, 16 * 1024)
     export_file(container, "/reports/dpkg-status", root / "var/lib/dpkg/status", 16 * 1024 * 1024)
 
 
@@ -217,17 +218,17 @@ def main():
                 run_recipe("docker", "run", "--name", baseline, "--platform", platform_arg, *isolated,
                     *mount(script_dir / "installed-inventory.sh", "/installed-inventory.sh"),
                     install, "bash", "-ec",
-                    'apt-get -o Acquire::Retries=0 -y install --no-install-recommends "$@"; '
-                    'audit=$(dpkg --audit); test -z "$audit"; bash /installed-inventory.sh',
-                    "baseline", *baseline_requests, *smoke_dependencies)
-                collect_inventory(baseline, temp / "baseline")
+                    'target=$1; shift; apt-get -o Acquire::Retries=0 -y install --no-install-recommends "$@"; '
+                    'audit=$(dpkg --audit); test -z "$audit"; bash /installed-inventory.sh "$target"',
+                    "baseline", target, *baseline_requests, *smoke_dependencies)
+                collect_inventory(baseline, temp / "baseline", target)
                 run_recipe("docker", "run", "--name", candidate_scan, "--platform", platform_arg,
                     *isolated, "--env", "INVENTORY_ONLY=1", *mount(selected, "/candidate"),
                     *mount(script_dir / "smoke.sh", "/smoke.sh"),
                     *mount(script_dir / "installed-inventory.sh", "/installed-inventory.sh"),
                     install, "bash", "/smoke.sh", target, policy["version"],
                     " ".join(smoke_dependencies), *binaries)
-                collect_inventory(candidate_scan, temp / "candidate")
+                collect_inventory(candidate_scan, temp / "candidate", target)
                 run(sys.executable, str(script_dir / "scan-pair.py"),
                     "--before", str(temp / "baseline"), "--after", str(temp / "candidate"),
                     "--reports", str(reports), "--policy", str(args.policy.resolve()))
