@@ -104,6 +104,8 @@ def main():
                 raise ValueError("CI baseline status must match in the target and patch metadata")
             if baseline_target and (schema != 3 or selected or patches or "releaseAccess" in target):
                 raise ValueError("CI baseline recipes require schema 3 and cannot select patches or request release access")
+            if schema == 3 and not security and not baseline_target:
+                raise ValueError("Targets without security patches must declare CI baseline status")
             if len(set(selected)) != len(selected):
                 raise ValueError("Duplicate selected patch")
             for patch_id in selected:
