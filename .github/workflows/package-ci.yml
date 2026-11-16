@@ -99,6 +99,17 @@ jobs:
       - name: Build, test and install
         if: ${{ !inputs.drift }}
         run: python3 tooling/scripts/build_ci.py --platform platform --recipe recipe --policy "$RUNNER_TEMP/policy.json" --reports "$RUNNER_TEMP/package-reports"
+      - name: Upload test results
+        continue-on-error: true
+        if: ${{ !cancelled() && !inputs.drift }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
+        with:
+          name: package-test-results-${{ matrix.target }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/package-reports/upstream-junit.xml
+            ${{ runner.temp }}/package-reports/autopkgtest-summary.txt
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Check source and dependency drift
         if: ${{ inputs.drift }}
         run: python3 tooling/scripts/source_drift.py --platform platform --policy "$RUNNER_TEMP/policy.json"

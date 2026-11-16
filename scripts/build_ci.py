@@ -45,13 +45,16 @@ def export_file(container, remote, destination, limit):
                 process.kill()
 
 
-def record_container_stage(container, work, reports):
+def record_container_report(container, work, reports, filename, limit):
+    exported = work / f"{container}-{filename}"
     try:
-        container_stage = work / f"{container}-stage"
-        export_file(container, "/reports/stage", container_stage, 128)
-        shutil.copyfile(container_stage, reports / "stage")
-    except (ValueError, tarfile.TarError):
+        export_file(container, f"/reports/{filename}", exported, limit)
+        shutil.copyfile(exported, reports / filename)
+    except tarfile.ReadError:
+        # Optional reports can be absent when tests did not run or could not finish.
         pass
+    except (ValueError, tarfile.TarError):
+        print(f"::warning title=Invalid package CI report::Discarded {filename}", flush=True)
 
 
 def docker_cleanup(*command):
@@ -148,7 +151,8 @@ def main():
                     *mount(platform / "verification/materialize-package.py", "/materialize-package.py"),
                     image, "bash", "/build.sh", target)
             finally:
-                record_container_stage(job, temp, reports)
+                record_container_report(job, temp, reports, "stage", 128)
+                record_container_report(job, temp, reports, "upstream-junit.xml", 2 * 1024 * 1024)
             stage(reports, "binary selection")
             selected = temp / "install"
             selected.mkdir()
@@ -179,7 +183,8 @@ def main():
                     "bash", "/smoke.sh", target, policy["version"],
                     " ".join(smoke_dependencies), *binaries)
             finally:
-                record_container_stage(install, temp, reports)
+                record_container_report(install, temp, reports, "stage", 128)
+                record_container_report(install, temp, reports, "autopkgtest-summary.txt", 64 * 1024)
             if not (recipe / f"ci/{target}/smoke.sh").is_file():
                 print(f"::warning::No ordinary-use smoke hook configured for {target}")
         finally:
