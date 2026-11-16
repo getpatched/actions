@@ -1,0 +1,116 @@
+name: Package CI
+
+on:
+  workflow_call:
+    inputs:
+      tooling_ref:
+        description: Immutable getpatched/actions commit containing the build scripts
+        required: true
+        type: string
+      drift:
+        description: Query current signed distribution indexes instead of building
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  recipe:
+    name: Recipe validation
+    runs-on: ubuntu-24.04
+    outputs:
+      matrix: ${{ steps.matrix.outputs.matrix }}
+    steps:
+      - name: Validate tooling ref
+        env:
+          TOOLING_REF: ${{ inputs.tooling_ref }}
+        run: '[[ "$TOOLING_REF" =~ ^[0-9a-f]{40}$ ]]'
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: recipe
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: getpatched/actions
+          ref: ${{ inputs.tooling_ref }}
+          path: tooling
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: getpatched/platform
+          ref: c035cb19bd94a167cb58a57c80bb8f7a1b422409
+          path: platform
+          persist-credentials: false
+      - id: matrix
+        name: Validate recipe and resolve targets
+        run: python3 tooling/scripts/recipe_ci.py --platform platform --recipe recipe --repository "$GITHUB_REPOSITORY"
+
+  build:
+    name: Build and test (${{ matrix.target }})
+    needs: recipe
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 100
+    strategy:
+      fail-fast: false
+      matrix: ${{ fromJSON(needs.recipe.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          path: recipe
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: getpatched/actions
+          ref: ${{ inputs.tooling_ref }}
+          path: tooling
+          persist-credentials: false
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          repository: getpatched/platform
+          ref: c035cb19bd94a167cb58a57c80bb8f7a1b422409
+          path: platform
+          persist-credentials: false
+      - name: Resolve validated build inputs
+        env:
+          TARGET: ${{ matrix.target }}
+        run: python3 tooling/scripts/recipe_ci.py --platform platform --recipe recipe --repository "$GITHUB_REPOSITORY" --target "$TARGET" > "$RUNNER_TEMP/policy.json"
+      - name: Build, test and install
+        if: ${{ !inputs.drift }}
+        run: python3 tooling/scripts/build_ci.py --platform platform --recipe recipe --policy "$RUNNER_TEMP/policy.json" --reports "$RUNNER_TEMP/package-reports"
+      - name: Check source and dependency drift
+        if: ${{ inputs.drift }}
+        run: python3 tooling/scripts/source_drift.py --platform platform --policy "$RUNNER_TEMP/policy.json"
+      - name: Summarize build failure
+        if: failure()
+        env:
+          TARGET: ${{ matrix.target }}
+          DRIFT: ${{ inputs.drift }}
+        run: |
+          stage='checkout or build environment preparation'
+          report="$RUNNER_TEMP/package-reports/stage"
+          if [[ -f "$report" ]]; then
+            case "$(cat "$report")" in
+              patch) stage='patch application' ;;
+              'build and distro tests') stage='build or distro tests' ;;
+              'additional upstream tests') stage='additional upstream tests' ;;
+              built) stage='binary selection, install or installed smoke test' ;;
+            esac
+          fi
+          if [[ "$DRIFT" == true ]]; then stage='source drift check'; fi
+          echo "::error title=Package CI failure::$GITHUB_REPOSITORY / $TARGET / $stage"
+          printf 'Failed: %s / %s / %s\n' "$GITHUB_REPOSITORY" "$TARGET" "$stage" >> "$GITHUB_STEP_SUMMARY"
+
+  result:
+    name: Package CI
+    if: always()
+    needs: [recipe, build]
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Require successful validation and all target builds
+        env:
+          VALIDATION: ${{ needs.recipe.result }}
+          BUILD: ${{ needs.build.result }}
+        run: |
+          printf 'Recipe validation: %s\n\nTarget builds: %s\n' "$VALIDATION" "$BUILD" >> "$GITHUB_STEP_SUMMARY"
+          [[ "$VALIDATION" == success && "$BUILD" == success ]]
