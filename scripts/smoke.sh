@@ -5,7 +5,8 @@ version=$2
 read -r -a dependencies <<< "$3"
 shift 3
 echo "::group::Install candidate packages"
-apt-get --no-download -y install --no-install-recommends /candidate/*.deb "${dependencies[@]}"
+# Let APT resolve absolute paths for local archives. The container has no network.
+apt-get -o Acquire::Retries=0 -y install --no-install-recommends /candidate/*.deb "${dependencies[@]}"
 for package in "$@"; do
   test "$(dpkg-query -W -f='${Version}' "$package")" = "$version"
   test "$(dpkg-query -W -f='${db:Status-Status}' "$package")" = installed
