@@ -53,6 +53,7 @@ def main():
     if not 1 <= len(refs) <= 32 or len({item["id"] for item in refs}) != len(refs):
         raise ValueError("Expected 1 to 32 unique recipe target IDs")
     metadata = load_json(recipe_path(root, manifest["patchMetadata"]))
+    baseline_metadata = metadata.get("status") == "ci-baseline"
     patches = {item["id"]: item for item in metadata["patches"]}
     if len(patches) != len(metadata["patches"]):
         raise ValueError("Duplicate patch metadata ID")
@@ -98,6 +99,11 @@ def main():
             security = target["patches"]
             compatibility = target.get("buildPatches", [])
             selected = security + compatibility
+            baseline_target = target.get("status") == "ci-baseline"
+            if baseline_target != baseline_metadata:
+                raise ValueError("CI baseline status must match in the target and patch metadata")
+            if baseline_target and (schema != 3 or selected or patches or "releaseAccess" in target):
+                raise ValueError("CI baseline recipes require schema 3 and cannot select patches or request release access")
             if len(set(selected)) != len(selected):
                 raise ValueError("Duplicate selected patch")
             for patch_id in selected:

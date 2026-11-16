@@ -64,7 +64,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: getpatched/platform
-          ref: c035cb19bd94a167cb58a57c80bb8f7a1b422409
+          ref: 9c8ecc0698143f7d4d8bbc4fa45d11ecef8fc89f
           path: platform
           persist-credentials: false
       - id: matrix
@@ -94,7 +94,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           repository: getpatched/platform
-          ref: c035cb19bd94a167cb58a57c80bb8f7a1b422409
+          ref: 9c8ecc0698143f7d4d8bbc4fa45d11ecef8fc89f
           path: platform
           persist-credentials: false
       - name: Resolve validated build inputs
