@@ -37,7 +37,7 @@ jobs:
           DRIFT: ${{ inputs.drift }}
         run: |
           if [[ -n "$RECIPE_REF" ]]; then
-            [[ "$DRIFT" == true && "$RECIPE_REF" == refs/heads/* ]]
+            [[ "$DRIFT" == true && "$RECIPE_REF" == refs/heads/* ]] || exit 1
             git check-ref-format "$RECIPE_REF"
           fi
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
