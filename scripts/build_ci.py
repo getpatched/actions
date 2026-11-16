@@ -218,7 +218,7 @@ def main():
                     *mount(script_dir / "installed-inventory.sh", "/installed-inventory.sh"),
                     install, "bash", "-ec",
                     'apt-get -o Acquire::Retries=0 -y install --no-install-recommends "$@"; '
-                    'test -z "$(dpkg --audit)"; bash /installed-inventory.sh',
+                    'audit=$(dpkg --audit); test -z "$audit"; bash /installed-inventory.sh',
                     "baseline", *baseline_requests, *smoke_dependencies)
                 collect_inventory(baseline, temp / "baseline")
                 run_recipe("docker", "run", "--name", candidate_scan, "--platform", platform_arg,
