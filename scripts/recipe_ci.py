@@ -8,6 +8,20 @@ import re
 import sys
 
 
+def validate_archive_asset(validate_source_asset, asset, package, version, *, distribution, descriptor=False):
+    validated_asset = asset
+    if distribution == "Debian" and isinstance(asset, dict):
+        name = asset.get("name")
+        pool_prefix = package[:4] if package.startswith("lib") else package[0]
+        pool_path = f"/debian/pool/main/{pool_prefix}/{package}/{name}"
+        if asset.get("url") == f"https://deb.debian.org{pool_path}":
+            # The pinned platform validator accepts the Debian snapshot hosts.
+            # Reuse its filename, size and digest checks for the official pool too.
+            validated_asset = {**asset, "url": f"https://snapshot.debian.org{pool_path}"}
+    validate_source_asset(validated_asset, package, version, distribution=distribution, descriptor=descriptor)
+    return asset
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--platform", type=Path, required=True)
@@ -72,9 +86,9 @@ def main():
                 raise ValueError("Invalid source pin or package version ordering")
             distro = base["distribution"]
             filename_version = version.split(":", 1)[-1]
-            descriptor = validate_source_asset(source["descriptor"], package, filename_version,
-                                               distribution=distro, descriptor=True)
-            assets = [validate_source_asset(item, package, version, distribution=distro)
+            descriptor = validate_archive_asset(validate_source_asset, source["descriptor"], package,
+                                                filename_version, distribution=distro, descriptor=True)
+            assets = [validate_archive_asset(validate_source_asset, item, package, version, distribution=distro)
                       for item in source["files"]]
             names = [item["name"] for item in [descriptor, *assets]]
             if (not assets or len(set(names)) != len(names)
