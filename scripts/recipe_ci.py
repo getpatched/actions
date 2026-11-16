@@ -113,11 +113,23 @@ def main():
             if (not binaries or len(set(binaries)) != len(binaries)
                     or any(not re.fullmatch(r"[a-z0-9][a-z0-9+.-]+", item) for item in binaries)):
                 raise ValueError("Expected unique Debian binary package names")
+            baseline_path = f"ci/{target_id}/baseline-versions.json"
+            baseline_file = root / baseline_path
+            baseline_overrides = {}
+            if baseline_file.exists() or baseline_file.is_symlink():
+                baseline_overrides = load_json(recipe_path(root, baseline_path))
+            if (not isinstance(baseline_overrides, dict)
+                    or any(name not in binaries or not isinstance(binary_version, str)
+                           or not re.fullmatch(re.escape(version) + r"\+b[1-9][0-9]*", binary_version)
+                           for name, binary_version in baseline_overrides.items())):
+                raise ValueError("Baseline binary overrides must pin archive rebuilds of the source version")
+            baseline_versions = {name: baseline_overrides.get(name, version) for name in binaries}
             matrix.append({"target": target_id, "runner": runner})
             policies[target_id] = {
                 "source": package, "targetId": target_id, "baseVersion": version,
                 "version": candidate, "releaseSerial": serial, "patches": security,
                 "buildPatches": compatibility, "binaryPackages": binaries,
+                "baselineBinaryVersions": baseline_versions,
                 "descriptor": descriptor, "sourceFiles": assets,
             }
         except (KeyError, TypeError, ValueError, RuntimeError) as error:

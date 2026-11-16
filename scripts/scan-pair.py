@@ -24,17 +24,17 @@ def findings(report, packages):
     }
 
 
-def installed_packages(report, packages, version):
-    inventories = [
-        entry for section in report.get("Results", []) if section.get("Class") == "os-pkgs"
-        for entry in section.get("Packages", [])
-    ]
+def installed_packages(report, expected_versions):
     # Trivy splits Debian versions into Version, Epoch and Release, but
     # preserves the unmodified dpkg version in the package ID.
-    exact = {entry["Name"] for entry in inventories if entry["ID"] == f"{entry['Name']}@{version}"}
-    missing = sorted(set(packages) - exact)
+    package_ids = {
+        entry["ID"] for section in report.get("Results", []) if section.get("Class") == "os-pkgs"
+        for entry in section.get("Packages", [])
+    }
+    expected = {f"{name}@{version}" for name, version in expected_versions.items()}
+    missing = sorted(expected - package_ids)
     if missing:
-        raise ValueError(f"Scanner did not identify expected version {version} for {', '.join(missing)}")
+        raise ValueError(f"Scanner did not identify expected package versions: {', '.join(missing)}")
 
 
 def run(*args, **kwargs):
@@ -56,9 +56,9 @@ def compare(before, after, reports, policy):
                             "--entrypoint", "/bin/busybox", TRIVY, "sha256sum", "/cache/db/trivy.db",
                             stdout=subprocess.PIPE, text=True).stdout.split()[0]
         scans = {}
-        for name, path, version in (
-            ("baseline", before, policy["baseVersion"]),
-            ("candidate", after, policy["version"]),
+        for name, path, versions in (
+            ("baseline", before, policy["baselineBinaryVersions"]),
+            ("candidate", after, dict.fromkeys(policy["binaryPackages"], policy["version"])),
         ):
             output = reports / f"vulnerability-{name}.json"
             with output.open("wb") as stream:
@@ -69,7 +69,7 @@ def compare(before, after, reports, policy):
                     "--pkg-types", "os", "--scanners", "vuln", "--list-all-pkgs",
                     "--format", "json", "/inventory", stdout=stream)
             report = json.loads(output.read_text())
-            installed_packages(report, policy["binaryPackages"], version)
+            installed_packages(report, versions)
             scans[name] = {
                 "digest": digest(output),
                 "inventorySha256": digest(path / "var/lib/dpkg/status"),
@@ -84,6 +84,7 @@ def compare(before, after, reports, policy):
             "databaseSha256": database_hash,
             "databaseMetadata": json.loads(database),
             "baselineVersion": policy["baseVersion"],
+            "baselineBinaryVersions": policy["baselineBinaryVersions"],
             "candidateVersion": policy["version"],
             "scans": scans,
             "newFindings": sorted(candidate - baseline),

@@ -189,8 +189,8 @@ def main():
             for filename in ("Packages", "InRelease", "archive-keyring.gpg", "signed-apt.txt"):
                 export_file(signer, f"/repository/{filename}", selected / filename, 2 * 1024 * 1024)
                 (selected / filename).chmod(0o644)
-            baseline_requests = ([f"{binary}={policy['baseVersion']}" for binary in binaries]
-                                 if args.paired_scan else [])
+            baseline_requests = ([f"{binary}={version}" for binary, version
+                                  in policy["baselineBinaryVersions"].items()] if args.paired_scan else [])
             stage(reports, "clean install dependency preparation")
             shutil.copyfile(script_dir / "install.Containerfile", temp / "Dockerfile")
             run("docker", "build", "--platform", platform_arg, "-t", install, *ca_args,
