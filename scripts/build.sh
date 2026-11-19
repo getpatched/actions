@@ -15,12 +15,22 @@ dpkg-source --before-build .
 echo "build and distro tests" > /reports/stage
 dpkg-buildpackage -b -us -uc -j1
 cp /build/*.buildinfo /reports/
-if [[ -f /recipe/ci/$1/upstream.sh ]]; then
+config="/recipe/ci/$1/upstream-tests.json"
+hook="/recipe/ci/$1/upstream.sh"
+if [[ -f "$config" && -f "$hook" ]]; then
+  echo "Configure either upstream-tests.json or upstream.sh, not both" >&2
+  exit 1
+fi
+if [[ -f "$config" || -f "$hook" ]]; then
   # dpkg-buildpackage may unapply quilt patches during its after-build hook.
   echo "patch" > /reports/stage
   dpkg-source --before-build .
   echo "additional upstream tests" > /reports/stage
-  bash "/recipe/ci/$1/upstream.sh"
+  if [[ -f "$config" ]]; then
+    python3 /upstream_tests.py --config "$config" --report /reports/upstream-junit.xml
+  else
+    bash "$hook"
+  fi
 else
   echo "No additional upstream suite configured"
 fi
