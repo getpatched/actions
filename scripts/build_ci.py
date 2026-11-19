@@ -128,10 +128,16 @@ def main():
     signer = image + "-signer"
     baseline = image + "-baseline"
     candidate_scan = image + "-candidate-scan"
+    stage(reports, "test configuration")
     for hook in ("upstream.sh", "smoke.sh", "compatibility.sh", "autopkgtest.sh"):
         relative = f"ci/{target}/{hook}"
         if (recipe / relative).exists() or (recipe / relative).is_symlink():
             recipe_path(recipe, relative)
+    suite_config = f"ci/{target}/upstream-tests.json"
+    if (recipe / suite_config).exists() or (recipe / suite_config).is_symlink():
+        recipe_path(recipe, suite_config)
+        if (recipe / f"ci/{target}/upstream.sh").exists():
+            raise ValueError("Configure either upstream-tests.json or upstream.sh, not both")
     dependencies = test_dependencies(recipe, target, "dependencies.txt", recipe_path)
     smoke_dependencies = test_dependencies(recipe, target, "smoke-dependencies.txt", recipe_path)
     if (recipe / f"ci/{target}/compatibility.sh").is_file():
@@ -163,6 +169,7 @@ def main():
                     *isolated, *offline_resolver_config(temp),
                     *mount(recipe, "/recipe"), *mount(args.policy.resolve(), "/policy.json"),
                     *mount(temp / "source", "/originals"), *mount(script_dir / "build.sh", "/build.sh"),
+                    *mount(script_dir / "upstream_tests.py", "/upstream_tests.py"),
                     *mount(platform / "verification/materialize-package.py", "/materialize-package.py"),
                     image, "bash", "/build.sh", target)
             finally:
