@@ -37,3 +37,20 @@ failure. Existing shell hooks can emit richer per-test JUnit at that same path.
 An absent additional suite is reported as unconfigured, never as a test pass.
 Suite commands run sequentially and must wait for their own child processes;
 they must not start persistent background services.
+
+## Pinned external test data
+
+Use `ci/<target>/test-assets.json` when an upstream suite needs a corpus omitted
+from the distro source. Each asset needs a unique plain `name`, HTTPS `url`,
+exact `bytes`, and lowercase `sha256`; the document uses `schemaVersion: 1` and
+an `assets` array. Downloads currently allow `download.gnome.org` and
+`gitlab.freedesktop.org`, including every redirect. The limit is eight assets
+and 512 MiB combined per target. New origins require shared-tooling review.
+
+The runner downloads and verifies each complete file before starting the build.
+It never extracts archives on the host. Verified files are mounted read-only at
+`/test-assets/<name>` in the existing offline container. Recipe suite commands
+extract the required data into a writable build directory and must check that the expected tests
+actually execute. A download or checksum failure fails CI with its own stage.
+The uploaded `test-assets.json` report records the verified pins; it does not
+claim that a suite ran or passed.
