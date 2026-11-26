@@ -12,7 +12,7 @@ import urllib.parse
 import urllib.request
 
 
-ORIGINS = {"download.gnome.org", "gitlab.freedesktop.org"}
+ORIGINS = {"download.gnome.org", "gitlab.freedesktop.org", "www.w3.org"}
 MAX_BYTES = 512 * 1024 * 1024
 
 

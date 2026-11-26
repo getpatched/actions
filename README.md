@@ -44,7 +44,7 @@ Use `ci/<target>/test-assets.json` when an upstream suite needs a corpus omitted
 from the distro source. Each asset needs a unique plain `name`, HTTPS `url`,
 exact `bytes`, and lowercase `sha256`; the document uses `schemaVersion: 1` and
 an `assets` array. Downloads currently allow `download.gnome.org` and
-`gitlab.freedesktop.org`, including every redirect. The limit is eight assets
+`gitlab.freedesktop.org` and `www.w3.org`, including every redirect. The limit is eight assets
 and 512 MiB combined per target. New origins require shared-tooling review.
 
 The runner downloads and verifies each complete file before starting the build.

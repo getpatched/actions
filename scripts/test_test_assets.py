@@ -37,6 +37,13 @@ class TestAssets(unittest.TestCase):
         with self.assertRaises(ValueError):
             SafeRedirect().redirect_request(None, None, 302, "", {}, "https://localhost/data")
 
+    def test_official_w3c_origin(self):
+        self.assertEqual(validate_url("https://www.w3.org/XML/Test/xmlts20080827.tar.gz"),
+                         "https://www.w3.org/XML/Test/xmlts20080827.tar.gz")
+        for url in ("https://www.w3.org.evil/data", "http://www.w3.org/data"):
+            with self.assertRaises(ValueError):
+                validate_url(url)
+
     def download(self, asset, response, folder):
         opener = Mock()
         opener.open.return_value = io.BytesIO(response)
