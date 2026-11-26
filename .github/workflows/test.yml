@@ -16,6 +16,7 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
         with:
           persist-credentials: false
+      - run: python3 -m pip install -r requirements-inventory.txt
       - name: Run shared tooling unit tests
         run: python3 -m unittest discover -s scripts -p 'test_*.py'
       - name: Check Python and shell syntax

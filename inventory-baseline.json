@@ -1,0 +1,2041 @@
+{
+  "schemaVersion": 1,
+  "description": "Reviewed historical coverage from packaging rollout; configuration and historical execution are distinct, never claims of current pass. Source version changes require review.",
+  "targets": [
+    {
+      "repository": "packaging-apache2",
+      "branch": "main",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "2.4.69-1~deb13u1",
+      "distroTestConfiguration": "No explicit suite in distro rules",
+      "scopeAndGaps": "Baseline-only recipe; upstream suite execution remains unverified.",
+      "observedExecution": null,
+      "packagingEvidence": {
+        "repository": "packaging-apache2",
+        "version": "2.4.69-1~deb13u1",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "779dac5ec4c04c08eb030e2182652607ad61b65fcc1b24051381c7a6411ab3de",
+        "url": "https://snapshot-fastly.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/a/apache2/apache2_2.4.69-1~deb13u1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "4d808ca400b6ff041ffb33648e60febc232df40f",
+      "executionEvidenceUrls": []
+    },
+    {
+      "repository": "packaging-bind9",
+      "branch": "main",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "1:9.20.30-1~deb13u1",
+      "distroTestConfiguration": "Distro override disables dh_auto_test",
+      "scopeAndGaps": "Baseline-only recipe; upstream unit/system tests are a coverage gap.",
+      "observedExecution": null,
+      "packagingEvidence": {
+        "repository": "packaging-bind9",
+        "version": "1:9.20.30-1~deb13u1",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "32dbfae3ec72ac2f4d64a624bfb650e3d7bd1b4e35dba67ff9d3026d252ed34d",
+        "url": "https://snapshot-fastly.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/b/bind9/bind9_9.20.30-1~deb13u1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "ae6a836a8a1802409a7473995377940e28d28a05",
+      "executionEvidenceUrls": []
+    },
+    {
+      "repository": "packaging-ffmpeg",
+      "branch": "main",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "7:7.1.5-0+deb13u1",
+      "distroTestConfiguration": "Distro standard-flavor dh_auto_test/FATE",
+      "scopeAndGaps": "Baseline-only recipe; no extra duplicate suite added.",
+      "observedExecution": null,
+      "packagingEvidence": {
+        "repository": "packaging-ffmpeg",
+        "version": "7:7.1.5-0+deb13u1",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "a1be51d8a10744952fe94fa318bf71bbc8074bed0951382c079ab7ef227f74ef",
+        "url": "https://snapshot-fastly.debian.org/archive/debian/20261030T000000Z/pool/main/f/ffmpeg/ffmpeg_7.1.5-0+deb13u1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "11f6ef8b426f3391e8d7b5fa6365b4c2af948408",
+      "executionEvidenceUrls": []
+    },
+    {
+      "repository": "packaging-openssh",
+      "branch": "main",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "1:10.0p1-7+deb13u4",
+      "distroTestConfiguration": "Distro unit, compat-tests, keygen and ucf checks",
+      "scopeAndGaps": "Baseline-only recipe; no extra duplicate suite added.",
+      "observedExecution": null,
+      "packagingEvidence": {
+        "repository": "packaging-openssh",
+        "version": "1:10.0p1-7+deb13u4",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "102e1065030c6002acabd7f896eeba1462bf54b4d7393bac34b0308312868ec6",
+        "url": "https://snapshot-fastly.debian.org/archive/debian/20261030T000000Z/pool/main/o/openssh/openssh_10.0p1-7+deb13u4.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "0148b0f291898533ec60282c1fc9e93d8792b8c8",
+      "executionEvidenceUrls": []
+    },
+    {
+      "repository": "packaging-packagekit",
+      "branch": "main",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "1.3.1-1+deb13u1",
+      "distroTestConfiguration": "Meson/dh_auto_test; daemon_tests=false",
+      "scopeAndGaps": "Baseline-only recipe; daemon tests require additional service setup and remain disabled.",
+      "observedExecution": null,
+      "packagingEvidence": {
+        "repository": "packaging-packagekit",
+        "version": "1.3.1-1+deb13u1",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "d74dea2f3264bc0cf9aa1a65bb224185d8de3c7a35af3cac7c61dc96503b35f0",
+        "url": "https://snapshot-fastly.debian.org/archive/debian/20261030T000000Z/pool/main/p/packagekit/packagekit_1.3.1-1+deb13u1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "37545492403cfca5f87af759e294b2bd9b20a75a",
+      "executionEvidenceUrls": []
+    },
+    {
+      "repository": "packaging-brotli",
+      "branch": "getpatched/focal",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "1.0.7-6ubuntu0.1",
+      "distroTestConfiguration": "Distro Python and CMake dh_auto_test",
+      "scopeAndGaps": "No duplicate extra suite needed; installed Python and C SDK checks already configured.",
+      "observedExecution": null,
+      "packagingEvidence": {
+        "repository": "packaging-brotli",
+        "version": "1.0.7-6ubuntu0.1",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "a1c204cac9e247319726c8ac2a0635a3f5ee8c88b163aa2b7f33110a02975536",
+        "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/brotli/1.0.7-6ubuntu0.1/brotli_1.0.7-6ubuntu0.1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "72dd6b9047ee326fb6887372ae4f1ac15a6bc4cc",
+      "executionEvidenceUrls": []
+    },
+    {
+      "repository": "packaging-c-ares",
+      "branch": "getpatched/debian-trixie",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "1.15.0-1ubuntu0.5",
+      "distroTestConfiguration": "Trixie enables CMake tests and excludes distro-selected live cases",
+      "scopeAndGaps": "Focal adds three bundled library-init tests; full live DNS and fuzz suites are outside this ordinary-use selection.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-c-ares",
+        "version": "1.15.0-1ubuntu0.5",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "b9572e5b5547b7c22febbee0e267bd956194f64cb418cbbf809be862138b8cb5",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/c/c-ares/c-ares_1.15.0-1ubuntu0.5.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "391df7a9217aed2693730e01f816f0a7b1cb4596",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-c-ares/actions/runs/44443387497/job/135289641884",
+        "https://github.com/getpatched/packaging-c-ares/actions/runs/44443387497/job/135289641769"
+      ]
+    },
+    {
+      "repository": "packaging-c-ares",
+      "branch": "getpatched/debian-trixie",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "1.34.5-1+deb13u1",
+      "distroTestConfiguration": "Trixie enables CMake tests and excludes distro-selected live cases",
+      "scopeAndGaps": "Focal adds three bundled library-init tests; full live DNS and fuzz suites are outside this ordinary-use selection.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-c-ares",
+        "version": "1.34.5-1+deb13u1",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "f815c2a7bf9dade9e98ac06ecf19de05678d3bd8507e6c0e60e4187320b30be5",
+        "url": "https://snapshot.debian.org/file/5df2a87f2ef8d68cdd4a7dc56ed97a92f405e81b"
+      },
+      "reviewedRecipeCommit": "391df7a9217aed2693730e01f816f0a7b1cb4596",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-c-ares/actions/runs/44443387497/job/135289641884",
+        "https://github.com/getpatched/packaging-c-ares/actions/runs/44443387497/job/135289641769"
+      ]
+    },
+    {
+      "repository": "packaging-c-ares",
+      "branch": "getpatched/focal",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "1.15.0-1ubuntu0.5",
+      "distroTestConfiguration": "Trixie enables CMake tests and excludes distro-selected live cases",
+      "scopeAndGaps": "Focal adds three bundled library-init tests; full live DNS and fuzz suites are outside this ordinary-use selection.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-c-ares",
+        "version": "1.15.0-1ubuntu0.5",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "b9572e5b5547b7c22febbee0e267bd956194f64cb418cbbf809be862138b8cb5",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/c/c-ares/c-ares_1.15.0-1ubuntu0.5.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "cb4fc2a213c7789474e02ac9295a52c00b9ad1fd",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-c-ares/actions/runs/44442691772/job/135287252972",
+        "https://github.com/getpatched/packaging-c-ares/actions/runs/44442691772/job/135287253194"
+      ]
+    },
+    {
+      "repository": "packaging-c-ares",
+      "branch": "getpatched/focal",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "1.34.5-1+deb13u1",
+      "distroTestConfiguration": "Trixie enables CMake tests and excludes distro-selected live cases",
+      "scopeAndGaps": "Focal adds three bundled library-init tests; full live DNS and fuzz suites are outside this ordinary-use selection.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-c-ares",
+        "version": "1.34.5-1+deb13u1",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "f815c2a7bf9dade9e98ac06ecf19de05678d3bd8507e6c0e60e4187320b30be5",
+        "url": "https://snapshot.debian.org/file/5df2a87f2ef8d68cdd4a7dc56ed97a92f405e81b"
+      },
+      "reviewedRecipeCommit": "cb4fc2a213c7789474e02ac9295a52c00b9ad1fd",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-c-ares/actions/runs/44442691772/job/135287252972",
+        "https://github.com/getpatched/packaging-c-ares/actions/runs/44442691772/job/135287253194"
+      ]
+    },
+    {
+      "repository": "packaging-curl",
+      "branch": "main",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "8.14.1-2+deb13u7",
+      "distroTestConfiguration": "Distro test-nonflaky for OpenSSL and GnuTLS",
+      "scopeAndGaps": "Eight additional local-file cases already merged with per-test JUnit.",
+      "observedExecution": null,
+      "packagingEvidence": {
+        "repository": "packaging-curl",
+        "version": "8.14.1-2+deb13u7",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "e0f627ee2b9ae61078b2835edc25c8b94a0b57e180a1bc72dd8636ef260c370b",
+        "url": "https://snapshot.debian.org/file/9fa1a72b0d02518e702f769134015c878717c56c"
+      },
+      "reviewedRecipeCommit": "8f8a1b7ffc2fa0b28b01dc78f5108740c8044d32",
+      "executionEvidenceUrls": []
+    },
+    {
+      "repository": "packaging-expat",
+      "branch": "getpatched/debian-bookworm",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "2.5.0-1+deb12u5",
+      "distroTestConfiguration": "Distro builds test programs without executing them",
+      "scopeAndGaps": "Added strict UTF-8 suite. Bookworm failure blocks merge. UTF-16 suite explicitly rejects distro's non-wchar_t ABI; not run.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "FAILURE",
+        "junit": {
+          "cases": 1,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "packagingEvidence": {
+        "repository": "packaging-expat",
+        "version": "2.5.0-1+deb12u5",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "08bda5605c940a2068a8f5df2a798524d8f403eae6d01e4f7039074a8e244d9e",
+        "url": "https://snapshot.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/e/expat/expat_2.5.0-1%2Bdeb12u5.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "83e8ce2dbff2d4d9ab814f536595782239710829",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-expat/actions/runs/44443391806/job/135289650547"
+      ]
+    },
+    {
+      "repository": "packaging-expat",
+      "branch": "getpatched/debian-bookworm",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "2.9.0-1~deb13u1",
+      "distroTestConfiguration": "Distro builds test programs without executing them",
+      "scopeAndGaps": "Added strict UTF-8 suite. Bookworm failure blocks merge. UTF-16 suite explicitly rejects distro's non-wchar_t ABI; not run.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-expat",
+        "version": "2.9.0-1~deb13u1",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "0c1575a3dc3d039f9e6751821efcdfd5246e04c6af4939defa01226d94541fba",
+        "url": "https://snapshot.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/e/expat/expat_2.9.0-1~deb13u1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "83e8ce2dbff2d4d9ab814f536595782239710829",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-expat/actions/runs/44443391806/job/135289650547"
+      ]
+    },
+    {
+      "repository": "packaging-expat",
+      "branch": "getpatched/debian-trixie",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "2.5.0-1+deb12u5",
+      "distroTestConfiguration": "Distro builds test programs without executing them",
+      "scopeAndGaps": "Added strict UTF-8 suite. Bookworm failure blocks merge. UTF-16 suite explicitly rejects distro's non-wchar_t ABI; not run.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "FAILURE",
+        "junit": {
+          "cases": 1,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "packagingEvidence": {
+        "repository": "packaging-expat",
+        "version": "2.5.0-1+deb12u5",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "08bda5605c940a2068a8f5df2a798524d8f403eae6d01e4f7039074a8e244d9e",
+        "url": "https://snapshot.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/e/expat/expat_2.5.0-1%2Bdeb12u5.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "c4e6ec2053d7ee4f9310623d3ea5edea6a9459da",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-expat/actions/runs/44443394402/job/135289594923"
+      ]
+    },
+    {
+      "repository": "packaging-expat",
+      "branch": "getpatched/debian-trixie",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "2.9.0-1~deb13u1",
+      "distroTestConfiguration": "Distro builds test programs without executing them",
+      "scopeAndGaps": "Added strict UTF-8 suite. Bookworm failure blocks merge. UTF-16 suite explicitly rejects distro's non-wchar_t ABI; not run.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-expat",
+        "version": "2.9.0-1~deb13u1",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "0c1575a3dc3d039f9e6751821efcdfd5246e04c6af4939defa01226d94541fba",
+        "url": "https://snapshot.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/e/expat/expat_2.9.0-1~deb13u1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "c4e6ec2053d7ee4f9310623d3ea5edea6a9459da",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-expat/actions/runs/44443394402/job/135289594923"
+      ]
+    },
+    {
+      "repository": "packaging-expat",
+      "branch": "main",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "2.5.0-1+deb12u5",
+      "distroTestConfiguration": "Distro builds test programs without executing them",
+      "scopeAndGaps": "Added strict UTF-8 suite. Bookworm failure blocks merge. UTF-16 suite explicitly rejects distro's non-wchar_t ABI; not run.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "FAILURE",
+        "junit": {
+          "cases": 1,
+          "failures": 1,
+          "errors": 0,
+          "skipped": 0
+        }
+      },
+      "packagingEvidence": {
+        "repository": "packaging-expat",
+        "version": "2.5.0-1+deb12u5",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "08bda5605c940a2068a8f5df2a798524d8f403eae6d01e4f7039074a8e244d9e",
+        "url": "https://snapshot.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/e/expat/expat_2.5.0-1%2Bdeb12u5.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "21a0e8030f51ceb00f73d733aff532a539f4cf32",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-expat/actions/runs/44442144142/job/135285413602"
+      ]
+    },
+    {
+      "repository": "packaging-expat",
+      "branch": "main",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "2.9.0-1~deb13u1",
+      "distroTestConfiguration": "Distro builds test programs without executing them",
+      "scopeAndGaps": "Added strict UTF-8 suite. Bookworm failure blocks merge. UTF-16 suite explicitly rejects distro's non-wchar_t ABI; not run.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-expat",
+        "version": "2.9.0-1~deb13u1",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "0c1575a3dc3d039f9e6751821efcdfd5246e04c6af4939defa01226d94541fba",
+        "url": "https://snapshot.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/e/expat/expat_2.9.0-1~deb13u1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "21a0e8030f51ceb00f73d733aff532a539f4cf32",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-expat/actions/runs/44442144142/job/135285413602"
+      ]
+    },
+    {
+      "repository": "packaging-imagemagick",
+      "branch": "getpatched/debian-trixie",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "8:7.1.1.43+dfsg1-1+deb13u13",
+      "distroTestConfiguration": "Distro quantum-build dh_auto_test",
+      "scopeAndGaps": "No extra duplicate suite added; installed consumer checks already configured.",
+      "observedExecution": null,
+      "packagingEvidence": {
+        "repository": "packaging-imagemagick",
+        "version": "8:7.1.1.43+dfsg1-1+deb13u13",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "4a1dfe533644f2c567ba474af9e78fca20e6d84535aafce42fe1ff6a03d593db",
+        "url": "https://snapshot.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/i/imagemagick/imagemagick_7.1.1.43+dfsg1-1+deb13u13.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "1386954dd265748ea4905d1eb37b3a9e4a22b24a",
+      "executionEvidenceUrls": []
+    },
+    {
+      "repository": "packaging-libarchive",
+      "branch": "getpatched/debian-trixie",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "3.4.0-2ubuntu1.5",
+      "distroTestConfiguration": "Distro dh_auto_test gated by check, enabled by shared builder",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed consumer checks to maintained branches.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libarchive",
+        "version": "3.4.0-2ubuntu1.5",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "677bade6eeba5b5414d1ee48b8320e139d3ddb25f8d7b8728c04890571a491ed",
+        "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/libarchive/3.4.0-2ubuntu1.5/libarchive_3.4.0-2ubuntu1.5.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "f552ce228e94964cafbba60bef513f7000f550b5",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libarchive/actions/runs/44443399290/job/135289686828",
+        "https://github.com/getpatched/packaging-libarchive/actions/runs/44443399290/job/135289686740"
+      ]
+    },
+    {
+      "repository": "packaging-libarchive",
+      "branch": "getpatched/debian-trixie",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "3.7.4-4+deb13u1",
+      "distroTestConfiguration": "Distro dh_auto_test gated by check, enabled by shared builder",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed consumer checks to maintained branches.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libarchive",
+        "version": "3.7.4-4+deb13u1",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "72da9703b642c6c9bc0432704f1ad14919c57f743336396b5f8aefaf9bf79874",
+        "url": "https://deb.debian.org/debian/pool/main/liba/libarchive/libarchive_3.7.4-4+deb13u1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "f552ce228e94964cafbba60bef513f7000f550b5",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libarchive/actions/runs/44443399290/job/135289686828",
+        "https://github.com/getpatched/packaging-libarchive/actions/runs/44443399290/job/135289686740"
+      ]
+    },
+    {
+      "repository": "packaging-libarchive",
+      "branch": "getpatched/focal",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "3.4.0-2ubuntu1.5",
+      "distroTestConfiguration": "Distro dh_auto_test gated by check, enabled by shared builder",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed consumer checks to maintained branches.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libarchive",
+        "version": "3.4.0-2ubuntu1.5",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "677bade6eeba5b5414d1ee48b8320e139d3ddb25f8d7b8728c04890571a491ed",
+        "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/libarchive/3.4.0-2ubuntu1.5/libarchive_3.4.0-2ubuntu1.5.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "79bbb0f221bb632f61a72d0a0663542eca55f276",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libarchive/actions/runs/44442798442/job/135287653042",
+        "https://github.com/getpatched/packaging-libarchive/actions/runs/44442798442/job/135287653085"
+      ]
+    },
+    {
+      "repository": "packaging-libarchive",
+      "branch": "getpatched/focal",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "3.7.4-4+deb13u1",
+      "distroTestConfiguration": "Distro dh_auto_test gated by check, enabled by shared builder",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed consumer checks to maintained branches.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libarchive",
+        "version": "3.7.4-4+deb13u1",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "72da9703b642c6c9bc0432704f1ad14919c57f743336396b5f8aefaf9bf79874",
+        "url": "https://deb.debian.org/debian/pool/main/liba/libarchive/libarchive_3.7.4-4+deb13u1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "79bbb0f221bb632f61a72d0a0663542eca55f276",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libarchive/actions/runs/44442798442/job/135287653042",
+        "https://github.com/getpatched/packaging-libarchive/actions/runs/44442798442/job/135287653085"
+      ]
+    },
+    {
+      "repository": "packaging-libgit2",
+      "branch": "getpatched/focal",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "0.28.4+dfsg.1-2ubuntu0.1",
+      "distroTestConfiguration": "Distro release-build Clar/CTest",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed distro SDK test. Main #15 merged after full passing evidence.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libgit2",
+        "version": "0.28.4+dfsg.1-2ubuntu0.1",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "8a3d388a52655ac0eb1437097b9cac150bc5052ac4fa44d98bb6d4d21c2e773d",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/universe/libg/libgit2/libgit2_0.28.4+dfsg.1-2ubuntu0.1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "7e936e7e575b2b8146023bfd40b1a6623a636332",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libgit2/actions/runs/44442811047/job/135287697672"
+      ]
+    },
+    {
+      "repository": "packaging-libgit2",
+      "branch": "getpatched/jammy",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "0.28.4+dfsg.1-2ubuntu0.1",
+      "distroTestConfiguration": "Distro release-build Clar/CTest",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed distro SDK test. Main #15 merged after full passing evidence.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libgit2",
+        "version": "0.28.4+dfsg.1-2ubuntu0.1",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "8a3d388a52655ac0eb1437097b9cac150bc5052ac4fa44d98bb6d4d21c2e773d",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/universe/libg/libgit2/libgit2_0.28.4+dfsg.1-2ubuntu0.1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "b4e8f3dfcddbc7db84070824b93f009bb6a946f5",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libgit2/actions/runs/44442821555/job/135287735415",
+        "https://github.com/getpatched/packaging-libgit2/actions/runs/44442821555/job/135287735328"
+      ]
+    },
+    {
+      "repository": "packaging-libgit2",
+      "branch": "getpatched/jammy",
+      "target": "ubuntu-jammy-amd64",
+      "sourceVersion": "1.1.0+dfsg.1-4.1ubuntu0.1",
+      "distroTestConfiguration": "Distro release-build Clar/CTest",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed distro SDK test. Main #15 merged after full passing evidence.",
+      "observedExecution": {
+        "target": "ubuntu-jammy-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libgit2",
+        "version": "1.1.0+dfsg.1-4.1ubuntu0.1",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "db97779ef0cfeb2d141a543bd778802f08eedbeba9f1ca16fcb112337d21b671",
+        "url": "https://snapshot.ubuntu.com/ubuntu/20261030T000000Z/pool/universe/libg/libgit2/libgit2_1.1.0+dfsg.1-4.1ubuntu0.1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "b4e8f3dfcddbc7db84070824b93f009bb6a946f5",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libgit2/actions/runs/44442821555/job/135287735415",
+        "https://github.com/getpatched/packaging-libgit2/actions/runs/44442821555/job/135287735328"
+      ]
+    },
+    {
+      "repository": "packaging-libgit2",
+      "branch": "main",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "0.28.4+dfsg.1-2ubuntu0.1",
+      "distroTestConfiguration": "Distro release-build Clar/CTest",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed distro SDK test. Main #15 merged after full passing evidence.",
+      "observedExecution": null,
+      "packagingEvidence": {
+        "repository": "packaging-libgit2",
+        "version": "0.28.4+dfsg.1-2ubuntu0.1",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "8a3d388a52655ac0eb1437097b9cac150bc5052ac4fa44d98bb6d4d21c2e773d",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/universe/libg/libgit2/libgit2_0.28.4+dfsg.1-2ubuntu0.1.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "f54253c2ad7e5c4c38b00178ea4c744c677577ac",
+      "executionEvidenceUrls": []
+    },
+    {
+      "repository": "packaging-libpng1.6",
+      "branch": "getpatched/focal",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "1.6.37-2",
+      "distroTestConfiguration": "Distro dh_auto_test and static pngtest",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed SDK checks.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libpng1.6",
+        "version": "1.6.37-2",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "097cee0f0da4013d0231d37e090204ab3fa592b4fecdaaed3fca8d13affcaae8",
+        "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/libpng1.6/1.6.37-2/libpng1.6_1.6.37-2.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "7f92c4ecdd9989159c7c75d4466dac744128aefd",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libpng1.6/actions/runs/44443402201/job/135289690691"
+      ]
+    },
+    {
+      "repository": "packaging-libpng1.6",
+      "branch": "main",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "1.6.37-2",
+      "distroTestConfiguration": "Distro dh_auto_test and static pngtest",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed SDK checks.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libpng1.6",
+        "version": "1.6.37-2",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "097cee0f0da4013d0231d37e090204ab3fa592b4fecdaaed3fca8d13affcaae8",
+        "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/libpng1.6/1.6.37-2/libpng1.6_1.6.37-2.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "fd29e087ec974cdec14e2f9ceed6d08f6bba7fc5",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libpng1.6/actions/runs/44442845566/job/135287822796"
+      ]
+    },
+    {
+      "repository": "packaging-libxml2",
+      "branch": "getpatched/debian-bookworm",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "2.9.10+dfsg-5ubuntu0.20.04.10",
+      "distroTestConfiguration": "Distro build layout does not establish complete corpus coverage",
+      "scopeAndGaps": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libxml2",
+        "version": "2.9.10+dfsg-5ubuntu0.20.04.10",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "93996cc05c902fca661c0f4b5ccd2691e62cfda5e38b2556b68bafa51bf0b843",
+        "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/libxml2/2.9.10+dfsg-5ubuntu0.20.04.10/libxml2_2.9.10+dfsg-5ubuntu0.20.04.10.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "123f13e0f5e5243e41ff41befab3ed0895c18da6",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684239",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684253",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684407"
+      ]
+    },
+    {
+      "repository": "packaging-libxml2",
+      "branch": "getpatched/debian-bookworm",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "2.9.14+dfsg-1.3~deb12u6",
+      "distroTestConfiguration": "Distro build layout does not establish complete corpus coverage",
+      "scopeAndGaps": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libxml2",
+        "version": "2.9.14+dfsg-1.3~deb12u6",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "f33a99a0018cbb94aadc3bf26661e401cb90dff856aa170faf7239151ee9b9ac",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/libx/libxml2/libxml2_2.9.14+dfsg-1.3~deb12u6.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "123f13e0f5e5243e41ff41befab3ed0895c18da6",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684239",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684253",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684407"
+      ]
+    },
+    {
+      "repository": "packaging-libxml2",
+      "branch": "getpatched/debian-bookworm",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+      "distroTestConfiguration": "Distro build layout does not establish complete corpus coverage",
+      "scopeAndGaps": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libxml2",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "3b6d265f482d6a8fbe3c056d2006fb3b563b4a838f7258b388ac5f0b29206921",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/libx/libxml2/libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u3.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "123f13e0f5e5243e41ff41befab3ed0895c18da6",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684239",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684253",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684407"
+      ]
+    },
+    {
+      "repository": "packaging-libxml2",
+      "branch": "getpatched/debian-trixie",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "2.9.10+dfsg-5ubuntu0.20.04.10",
+      "distroTestConfiguration": "Distro build layout does not establish complete corpus coverage",
+      "scopeAndGaps": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libxml2",
+        "version": "2.9.10+dfsg-5ubuntu0.20.04.10",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "93996cc05c902fca661c0f4b5ccd2691e62cfda5e38b2556b68bafa51bf0b843",
+        "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/libxml2/2.9.10+dfsg-5ubuntu0.20.04.10/libxml2_2.9.10+dfsg-5ubuntu0.20.04.10.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "38520221bdd4da55f66b59088dd3336e55defbc7",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659648",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659632",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659502"
+      ]
+    },
+    {
+      "repository": "packaging-libxml2",
+      "branch": "getpatched/debian-trixie",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "2.9.14+dfsg-1.3~deb12u6",
+      "distroTestConfiguration": "Distro build layout does not establish complete corpus coverage",
+      "scopeAndGaps": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libxml2",
+        "version": "2.9.14+dfsg-1.3~deb12u6",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "f33a99a0018cbb94aadc3bf26661e401cb90dff856aa170faf7239151ee9b9ac",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/libx/libxml2/libxml2_2.9.14+dfsg-1.3~deb12u6.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "38520221bdd4da55f66b59088dd3336e55defbc7",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659648",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659632",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659502"
+      ]
+    },
+    {
+      "repository": "packaging-libxml2",
+      "branch": "getpatched/debian-trixie",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+      "distroTestConfiguration": "Distro build layout does not establish complete corpus coverage",
+      "scopeAndGaps": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libxml2",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "3b6d265f482d6a8fbe3c056d2006fb3b563b4a838f7258b388ac5f0b29206921",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/libx/libxml2/libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u3.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "38520221bdd4da55f66b59088dd3336e55defbc7",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659648",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659632",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659502"
+      ]
+    },
+    {
+      "repository": "packaging-libxml2",
+      "branch": "getpatched/focal",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "2.9.10+dfsg-5ubuntu0.20.04.10",
+      "distroTestConfiguration": "Distro build layout does not establish complete corpus coverage",
+      "scopeAndGaps": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libxml2",
+        "version": "2.9.10+dfsg-5ubuntu0.20.04.10",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "93996cc05c902fca661c0f4b5ccd2691e62cfda5e38b2556b68bafa51bf0b843",
+        "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/libxml2/2.9.10+dfsg-5ubuntu0.20.04.10/libxml2_2.9.10+dfsg-5ubuntu0.20.04.10.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "e2064dabd2914caf3e48683eb2ebb1bad46322c7",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374902",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374891",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374899"
+      ]
+    },
+    {
+      "repository": "packaging-libxml2",
+      "branch": "getpatched/focal",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "2.9.14+dfsg-1.3~deb12u6",
+      "distroTestConfiguration": "Distro build layout does not establish complete corpus coverage",
+      "scopeAndGaps": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libxml2",
+        "version": "2.9.14+dfsg-1.3~deb12u6",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "f33a99a0018cbb94aadc3bf26661e401cb90dff856aa170faf7239151ee9b9ac",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/libx/libxml2/libxml2_2.9.14+dfsg-1.3~deb12u6.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "e2064dabd2914caf3e48683eb2ebb1bad46322c7",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374902",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374891",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374899"
+      ]
+    },
+    {
+      "repository": "packaging-libxml2",
+      "branch": "getpatched/focal",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+      "distroTestConfiguration": "Distro build layout does not establish complete corpus coverage",
+      "scopeAndGaps": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-libxml2",
+        "version": "2.12.7+dfsg+really2.9.14-2.1+deb13u3",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "3b6d265f482d6a8fbe3c056d2006fb3b563b4a838f7258b388ac5f0b29206921",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/libx/libxml2/libxml2_2.12.7+dfsg+really2.9.14-2.1+deb13u3.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "e2064dabd2914caf3e48683eb2ebb1bad46322c7",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374902",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374891",
+        "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374899"
+      ]
+    },
+    {
+      "repository": "packaging-poppler",
+      "branch": "getpatched/debian-bookworm",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "0.86.1-0ubuntu1.7",
+      "distroTestConfiguration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+      "scopeAndGaps": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-poppler",
+        "version": "0.86.1-0ubuntu1.7",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "db689f59c36be6413ccc37f9f6eee1370dac8589b03a0c936ad539ea37344c80",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/poppler/poppler_0.86.1-0ubuntu1.7.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "2f0ff4087840e36340259d14ff237c8b26ef8962",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289686930",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289686837",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289687108"
+      ]
+    },
+    {
+      "repository": "packaging-poppler",
+      "branch": "getpatched/debian-bookworm",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "22.12.0-2+deb12u3",
+      "distroTestConfiguration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+      "scopeAndGaps": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-poppler",
+        "version": "22.12.0-2+deb12u3",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "2028e5351ad7c0e4c1166776468d810dd5bcb981dbcdc91189277cfcfec614a2",
+        "url": "https://snapshot.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/p/poppler/poppler_22.12.0-2+deb12u3.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "2f0ff4087840e36340259d14ff237c8b26ef8962",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289686930",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289686837",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289687108"
+      ]
+    },
+    {
+      "repository": "packaging-poppler",
+      "branch": "getpatched/debian-bookworm",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "25.03.0-5+deb13u4",
+      "distroTestConfiguration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+      "scopeAndGaps": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-poppler",
+        "version": "25.03.0-5+deb13u4",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "2605b5d7e6ce17a307d067048386deedfc41fdac6f75f81ad76050f517fc0de4",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/p/poppler/poppler_25.03.0-5+deb13u4.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "2f0ff4087840e36340259d14ff237c8b26ef8962",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289686930",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289686837",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289687108"
+      ]
+    },
+    {
+      "repository": "packaging-poppler",
+      "branch": "getpatched/debian-trixie",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "0.86.1-0ubuntu1.7",
+      "distroTestConfiguration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+      "scopeAndGaps": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-poppler",
+        "version": "0.86.1-0ubuntu1.7",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "db689f59c36be6413ccc37f9f6eee1370dac8589b03a0c936ad539ea37344c80",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/poppler/poppler_0.86.1-0ubuntu1.7.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "eee8ac3524560a9b48b0aca10dcdfdd86ad9a12c",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289693056",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289692985",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289693168"
+      ]
+    },
+    {
+      "repository": "packaging-poppler",
+      "branch": "getpatched/debian-trixie",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "22.12.0-2+deb12u3",
+      "distroTestConfiguration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+      "scopeAndGaps": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-poppler",
+        "version": "22.12.0-2+deb12u3",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "2028e5351ad7c0e4c1166776468d810dd5bcb981dbcdc91189277cfcfec614a2",
+        "url": "https://snapshot.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/p/poppler/poppler_22.12.0-2+deb12u3.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "eee8ac3524560a9b48b0aca10dcdfdd86ad9a12c",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289693056",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289692985",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289693168"
+      ]
+    },
+    {
+      "repository": "packaging-poppler",
+      "branch": "getpatched/debian-trixie",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "25.03.0-5+deb13u4",
+      "distroTestConfiguration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+      "scopeAndGaps": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-poppler",
+        "version": "25.03.0-5+deb13u4",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "2605b5d7e6ce17a307d067048386deedfc41fdac6f75f81ad76050f517fc0de4",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/p/poppler/poppler_25.03.0-5+deb13u4.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "eee8ac3524560a9b48b0aca10dcdfdd86ad9a12c",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289693056",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289692985",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289693168"
+      ]
+    },
+    {
+      "repository": "packaging-poppler",
+      "branch": "getpatched/focal",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "0.86.1-0ubuntu1.7",
+      "distroTestConfiguration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+      "scopeAndGaps": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-poppler",
+        "version": "0.86.1-0ubuntu1.7",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "db689f59c36be6413ccc37f9f6eee1370dac8589b03a0c936ad539ea37344c80",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/poppler/poppler_0.86.1-0ubuntu1.7.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "e290f2df5d2c56b4690a43ebdddce970406e18c7",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44443422895/job/135289768491"
+      ]
+    },
+    {
+      "repository": "packaging-poppler",
+      "branch": "main",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "0.86.1-0ubuntu1.7",
+      "distroTestConfiguration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+      "scopeAndGaps": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-poppler",
+        "version": "0.86.1-0ubuntu1.7",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "db689f59c36be6413ccc37f9f6eee1370dac8589b03a0c936ad539ea37344c80",
+        "url": "https://archive.ubuntu.com/ubuntu/pool/main/p/poppler/poppler_0.86.1-0ubuntu1.7.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "e517d5441a91e0ea6eed853b92f96ca2de21e385",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582374",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582420",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582334"
+      ]
+    },
+    {
+      "repository": "packaging-poppler",
+      "branch": "main",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "22.12.0-2+deb12u3",
+      "distroTestConfiguration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+      "scopeAndGaps": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-poppler",
+        "version": "22.12.0-2+deb12u3",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "2028e5351ad7c0e4c1166776468d810dd5bcb981dbcdc91189277cfcfec614a2",
+        "url": "https://snapshot.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/p/poppler/poppler_22.12.0-2+deb12u3.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "e517d5441a91e0ea6eed853b92f96ca2de21e385",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582374",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582420",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582334"
+      ]
+    },
+    {
+      "repository": "packaging-poppler",
+      "branch": "main",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "25.03.0-5+deb13u4",
+      "distroTestConfiguration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+      "scopeAndGaps": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-poppler",
+        "version": "25.03.0-5+deb13u4",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "2605b5d7e6ce17a307d067048386deedfc41fdac6f75f81ad76050f517fc0de4",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/p/poppler/poppler_25.03.0-5+deb13u4.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "e517d5441a91e0ea6eed853b92f96ca2de21e385",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582374",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582420",
+        "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582334"
+      ]
+    },
+    {
+      "repository": "packaging-python-msgpack",
+      "branch": "getpatched/debian-bookworm",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "1.0.3-2",
+      "distroTestConfiguration": "Distro pytest plus extra forced pure-Python pytest",
+      "scopeAndGaps": "Retain extra suite, add JUnit and propagate installed distro import and compatibility tests.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 117,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-python-msgpack",
+        "version": "1.0.3-2",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "ccf552a4bc18b8f527c076b9df245bb68d8ea02f24199d09105acd76fca3b7c7",
+        "url": "https://snapshot-fastly.debian.org/archive/debian/20261030T000000Z/pool/main/p/python-msgpack/python-msgpack_1.0.3-2.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "324528992c1d5ebcf4005f7810b2b6e9e5a16ebe",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443427464/job/135289754225",
+        "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443427464/job/135289754208"
+      ]
+    },
+    {
+      "repository": "packaging-python-msgpack",
+      "branch": "getpatched/debian-bookworm",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "1.0.3-3",
+      "distroTestConfiguration": "Distro pytest plus extra forced pure-Python pytest",
+      "scopeAndGaps": "Retain extra suite, add JUnit and propagate installed distro import and compatibility tests.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 117,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-python-msgpack",
+        "version": "1.0.3-3",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "5a1d1849b85c0ded55a4b5905c4d084d9e9f0d1e711a26fa873c0e7c907ef049",
+        "url": "https://snapshot-fastly.debian.org/archive/debian/20261030T000000Z/pool/main/p/python-msgpack/python-msgpack_1.0.3-3.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "324528992c1d5ebcf4005f7810b2b6e9e5a16ebe",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443427464/job/135289754225",
+        "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443427464/job/135289754208"
+      ]
+    },
+    {
+      "repository": "packaging-python-msgpack",
+      "branch": "getpatched/debian-trixie",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "1.0.3-2",
+      "distroTestConfiguration": "Distro pytest plus extra forced pure-Python pytest",
+      "scopeAndGaps": "Retain extra suite, add JUnit and propagate installed distro import and compatibility tests.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 117,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-python-msgpack",
+        "version": "1.0.3-2",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "ccf552a4bc18b8f527c076b9df245bb68d8ea02f24199d09105acd76fca3b7c7",
+        "url": "https://snapshot-fastly.debian.org/archive/debian/20261030T000000Z/pool/main/p/python-msgpack/python-msgpack_1.0.3-2.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "3535823a6f7322d90dcf5f5c9bea20c48fb4bd53",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443429197/job/135289810113",
+        "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443429197/job/135289810184"
+      ]
+    },
+    {
+      "repository": "packaging-python-msgpack",
+      "branch": "getpatched/debian-trixie",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "1.0.3-3",
+      "distroTestConfiguration": "Distro pytest plus extra forced pure-Python pytest",
+      "scopeAndGaps": "Retain extra suite, add JUnit and propagate installed distro import and compatibility tests.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 117,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-python-msgpack",
+        "version": "1.0.3-3",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "5a1d1849b85c0ded55a4b5905c4d084d9e9f0d1e711a26fa873c0e7c907ef049",
+        "url": "https://snapshot-fastly.debian.org/archive/debian/20261030T000000Z/pool/main/p/python-msgpack/python-msgpack_1.0.3-3.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "3535823a6f7322d90dcf5f5c9bea20c48fb4bd53",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443429197/job/135289810113",
+        "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443429197/job/135289810184"
+      ]
+    },
+    {
+      "repository": "packaging-python-msgpack",
+      "branch": "main",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "1.0.3-2",
+      "distroTestConfiguration": "Distro pytest plus extra forced pure-Python pytest",
+      "scopeAndGaps": "Retain extra suite, add JUnit and propagate installed distro import and compatibility tests.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 117,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-python-msgpack",
+        "version": "1.0.3-2",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "ccf552a4bc18b8f527c076b9df245bb68d8ea02f24199d09105acd76fca3b7c7",
+        "url": "https://snapshot-fastly.debian.org/archive/debian/20261030T000000Z/pool/main/p/python-msgpack/python-msgpack_1.0.3-2.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "86a2bbb1dfc4c4f9463c713372d9a49b8034667e",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44442877783/job/135287926602",
+        "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44442877783/job/135287926666"
+      ]
+    },
+    {
+      "repository": "packaging-python-msgpack",
+      "branch": "main",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "1.0.3-3",
+      "distroTestConfiguration": "Distro pytest plus extra forced pure-Python pytest",
+      "scopeAndGaps": "Retain extra suite, add JUnit and propagate installed distro import and compatibility tests.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": {
+          "cases": 117,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-python-msgpack",
+        "version": "1.0.3-3",
+        "files": [
+          "debian/control",
+          "debian/rules",
+          "debian/tests/control"
+        ],
+        "sha256": "5a1d1849b85c0ded55a4b5905c4d084d9e9f0d1e711a26fa873c0e7c907ef049",
+        "url": "https://snapshot-fastly.debian.org/archive/debian/20261030T000000Z/pool/main/p/python-msgpack/python-msgpack_1.0.3-3.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "86a2bbb1dfc4c4f9463c713372d9a49b8034667e",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44442877783/job/135287926602",
+        "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44442877783/job/135287926666"
+      ]
+    },
+    {
+      "repository": "packaging-tiff",
+      "branch": "getpatched/debian-bookworm",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "4.1.0+git191117-2ubuntu0.20.04.14",
+      "distroTestConfiguration": "Distro dh_auto_test; Trixie forces single test worker",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed multi-image consumer tests.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-tiff",
+        "version": "4.1.0+git191117-2ubuntu0.20.04.14",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "3c89b7298f5ac1521f5524ce0b6948514a11065a20bd9d6c92ff71b3d56bec13",
+        "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tiff/4.1.0+git191117-2ubuntu0.20.04.14/tiff_4.1.0+git191117-2ubuntu0.20.04.14.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "6128f0e92bf08d8a2709d6ef7cbc1838a38dda13",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762682",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762496",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762435"
+      ]
+    },
+    {
+      "repository": "packaging-tiff",
+      "branch": "getpatched/debian-bookworm",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "4.5.0-6+deb12u4",
+      "distroTestConfiguration": "Distro dh_auto_test; Trixie forces single test worker",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed multi-image consumer tests.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-tiff",
+        "version": "4.5.0-6+deb12u4",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "4ee50a8cdf74a184d94e65a04f3c9de466cb0b74ef5393fb5ca65666fccb864b",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/t/tiff/tiff_4.5.0-6+deb12u4.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "6128f0e92bf08d8a2709d6ef7cbc1838a38dda13",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762682",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762496",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762435"
+      ]
+    },
+    {
+      "repository": "packaging-tiff",
+      "branch": "getpatched/debian-bookworm",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "4.7.0-3+deb13u3",
+      "distroTestConfiguration": "Distro dh_auto_test; Trixie forces single test worker",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed multi-image consumer tests.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-tiff",
+        "version": "4.7.0-3+deb13u3",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "c0cbcb717e20a69964bfa7471cbb0137dd39a451434932972bc7fbcdb86345f8",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/t/tiff/tiff_4.7.0-3+deb13u3.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "6128f0e92bf08d8a2709d6ef7cbc1838a38dda13",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762682",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762496",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762435"
+      ]
+    },
+    {
+      "repository": "packaging-tiff",
+      "branch": "getpatched/debian-trixie",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "4.1.0+git191117-2ubuntu0.20.04.14",
+      "distroTestConfiguration": "Distro dh_auto_test; Trixie forces single test worker",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed multi-image consumer tests.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-tiff",
+        "version": "4.1.0+git191117-2ubuntu0.20.04.14",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "3c89b7298f5ac1521f5524ce0b6948514a11065a20bd9d6c92ff71b3d56bec13",
+        "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tiff/4.1.0+git191117-2ubuntu0.20.04.14/tiff_4.1.0+git191117-2ubuntu0.20.04.14.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "ff061d37cda801b694a21f94fa8a9875c1f95108",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857240",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857154",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857127"
+      ]
+    },
+    {
+      "repository": "packaging-tiff",
+      "branch": "getpatched/debian-trixie",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "4.5.0-6+deb12u4",
+      "distroTestConfiguration": "Distro dh_auto_test; Trixie forces single test worker",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed multi-image consumer tests.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-tiff",
+        "version": "4.5.0-6+deb12u4",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "4ee50a8cdf74a184d94e65a04f3c9de466cb0b74ef5393fb5ca65666fccb864b",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/t/tiff/tiff_4.5.0-6+deb12u4.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "ff061d37cda801b694a21f94fa8a9875c1f95108",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857240",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857154",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857127"
+      ]
+    },
+    {
+      "repository": "packaging-tiff",
+      "branch": "getpatched/debian-trixie",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "4.7.0-3+deb13u3",
+      "distroTestConfiguration": "Distro dh_auto_test; Trixie forces single test worker",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed multi-image consumer tests.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-tiff",
+        "version": "4.7.0-3+deb13u3",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "c0cbcb717e20a69964bfa7471cbb0137dd39a451434932972bc7fbcdb86345f8",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/t/tiff/tiff_4.7.0-3+deb13u3.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "ff061d37cda801b694a21f94fa8a9875c1f95108",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857240",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857154",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857127"
+      ]
+    },
+    {
+      "repository": "packaging-tiff",
+      "branch": "getpatched/focal",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "4.1.0+git191117-2ubuntu0.20.04.14",
+      "distroTestConfiguration": "Distro dh_auto_test; Trixie forces single test worker",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed multi-image consumer tests.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-tiff",
+        "version": "4.1.0+git191117-2ubuntu0.20.04.14",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "3c89b7298f5ac1521f5524ce0b6948514a11065a20bd9d6c92ff71b3d56bec13",
+        "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tiff/4.1.0+git191117-2ubuntu0.20.04.14/tiff_4.1.0+git191117-2ubuntu0.20.04.14.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "5cf75131c4f5f9020a9e11616360be6bb2c0d11b",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859214",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859117",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859105"
+      ]
+    },
+    {
+      "repository": "packaging-tiff",
+      "branch": "getpatched/focal",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "4.5.0-6+deb12u4",
+      "distroTestConfiguration": "Distro dh_auto_test; Trixie forces single test worker",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed multi-image consumer tests.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-tiff",
+        "version": "4.5.0-6+deb12u4",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "4ee50a8cdf74a184d94e65a04f3c9de466cb0b74ef5393fb5ca65666fccb864b",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/t/tiff/tiff_4.5.0-6+deb12u4.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "5cf75131c4f5f9020a9e11616360be6bb2c0d11b",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859214",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859117",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859105"
+      ]
+    },
+    {
+      "repository": "packaging-tiff",
+      "branch": "getpatched/focal",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "4.7.0-3+deb13u3",
+      "distroTestConfiguration": "Distro dh_auto_test; Trixie forces single test worker",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed multi-image consumer tests.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-tiff",
+        "version": "4.7.0-3+deb13u3",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "c0cbcb717e20a69964bfa7471cbb0137dd39a451434932972bc7fbcdb86345f8",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/t/tiff/tiff_4.7.0-3+deb13u3.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "5cf75131c4f5f9020a9e11616360be6bb2c0d11b",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859214",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859117",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859105"
+      ]
+    },
+    {
+      "repository": "packaging-tiff",
+      "branch": "main",
+      "target": "ubuntu-focal-amd64",
+      "sourceVersion": "4.1.0+git191117-2ubuntu0.20.04.14",
+      "distroTestConfiguration": "Distro dh_auto_test; Trixie forces single test worker",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed multi-image consumer tests.",
+      "observedExecution": {
+        "target": "ubuntu-focal-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-tiff",
+        "version": "4.1.0+git191117-2ubuntu0.20.04.14",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "3c89b7298f5ac1521f5524ce0b6948514a11065a20bd9d6c92ff71b3d56bec13",
+        "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tiff/4.1.0+git191117-2ubuntu0.20.04.14/tiff_4.1.0+git191117-2ubuntu0.20.04.14.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "d6ec5bc7e19fdc1574fd99cd0b1fa74568c1b6e4",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067391",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067341",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067334"
+      ]
+    },
+    {
+      "repository": "packaging-tiff",
+      "branch": "main",
+      "target": "debian-bookworm-amd64",
+      "sourceVersion": "4.5.0-6+deb12u4",
+      "distroTestConfiguration": "Distro dh_auto_test; Trixie forces single test worker",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed multi-image consumer tests.",
+      "observedExecution": {
+        "target": "debian-bookworm-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-tiff",
+        "version": "4.5.0-6+deb12u4",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "4ee50a8cdf74a184d94e65a04f3c9de466cb0b74ef5393fb5ca65666fccb864b",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/t/tiff/tiff_4.5.0-6+deb12u4.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "d6ec5bc7e19fdc1574fd99cd0b1fa74568c1b6e4",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067391",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067341",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067334"
+      ]
+    },
+    {
+      "repository": "packaging-tiff",
+      "branch": "main",
+      "target": "debian-trixie-amd64",
+      "sourceVersion": "4.7.0-3+deb13u3",
+      "distroTestConfiguration": "Distro dh_auto_test; Trixie forces single test worker",
+      "scopeAndGaps": "No extra duplicate suite needed; propagate installed multi-image consumer tests.",
+      "observedExecution": {
+        "target": "debian-trixie-amd64",
+        "conclusion": "SUCCESS",
+        "junit": null,
+        "reportAssertionsVerified": true
+      },
+      "packagingEvidence": {
+        "repository": "packaging-tiff",
+        "version": "4.7.0-3+deb13u3",
+        "files": [
+          "debian/control",
+          "debian/rules"
+        ],
+        "sha256": "c0cbcb717e20a69964bfa7471cbb0137dd39a451434932972bc7fbcdb86345f8",
+        "url": "https://snapshot.debian.org/archive/debian/20261030T000000Z/pool/main/t/tiff/tiff_4.7.0-3+deb13u3.debian.tar.xz"
+      },
+      "reviewedRecipeCommit": "d6ec5bc7e19fdc1574fd99cd0b1fa74568c1b6e4",
+      "executionEvidenceUrls": [
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067391",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067341",
+        "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067334"
+      ]
+    }
+  ]
+}

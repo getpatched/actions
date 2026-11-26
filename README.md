@@ -54,3 +54,28 @@ extract the required data into a writable build directory and must check that th
 actually execute. A download or checksum failure fails CI with its own stage.
 The uploaded `test-assets.json` report records the verified pins; it does not
 claim that a suite ran or passed.
+
+### Read-only package inventory
+
+The weekly `Package inventory` workflow discovers all public `packaging-*`
+repositories using paginated GitHub API reads. It inspects each default branch,
+all `getpatched/*` branches, and any branch retained in the reviewed baseline.
+Other topic branches are listed as ignored. Each inspected branch is frozen to
+its discovered commit. Recipe code is never executed and no inherited secrets
+or write token permissions are requested.
+
+The JSON artifact and job summary flag new repositories/branches, inaccessible
+metadata, missing callers, mutable/outdated workflow and tooling pins, and
+coverage requiring review. A finding fails the inventory job, without changing
+package build or release gates. Scheduled drift callers are inspected separately
+and may intentionally use older pins; those findings require maintainer review.
+
+`inventory-baseline.json` retains the rollout's 65 reviewed target observations,
+source versions, distro configuration, gaps, and historical execution references.
+A matching source version permits displaying historical evidence, never a claim
+that today's commit passed. Missing additional upstream configuration does not
+mean distro tests are absent. Source changes and unreviewed targets are unknown
+until reviewed; update the baseline with recipe/source references and retained
+run evidence after review. Run locally with `pip install -r requirements-inventory.txt`
+and `GH_TOKEN=… python3 scripts/package_inventory.py` (token optional for public
+reads, but unauthenticated rate limits are usually insufficient for the org).
