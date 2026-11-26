@@ -57,6 +57,36 @@ def reviewed_coverage(rows, target, version):
     return next((r for r in rows if r["target"] == target and r["sourceVersion"] == version), None)
 
 
+def missing_expected(baseline, repositories, branches):
+    """Reconcile reviewed inventory against observed identities, not just additions."""
+    observed_repos = set(repositories)
+    observed_branches = {(row['repository'], row['branch']) for row in branches}
+    observed_targets = {(row['repository'], row['branch'], target['id'])
+                        for row in branches for target in row['targets']}
+    findings = []
+    for repo in sorted({row['repository'] for row in baseline} - observed_repos):
+        findings.append(f'{repo}: reviewed repository missing from discovery')
+    expected_branches = {(row['repository'], row['branch']) for row in baseline}
+    for repo, branch in sorted(expected_branches - observed_branches):
+        if repo in observed_repos:
+            findings.append(f'{repo}@{branch}: reviewed branch missing or not inspectable')
+    expected_targets = {(row['repository'], row['branch'], row['target']) for row in baseline}
+    for repo, branch, target in sorted(expected_targets - observed_targets):
+        if (repo, branch) in observed_branches:
+            findings.append(f'{repo}@{branch}/{target}: reviewed target missing or not inspectable')
+    return findings
+
+
+def coverage_findings(evidence):
+    findings = []
+    if not evidence.get('observedExecution'):
+        findings.append('no retained execution evidence in reviewed baseline')
+    status = evidence.get('coverageStatus', 'unknown')
+    if status != 'reviewed-selection' or evidence.get('additionalGap'):
+        findings.append(f'reviewed coverage {status}: {evidence.get("additionalGap") or evidence["scopeAndGaps"]}')
+    return findings
+
+
 def inventory(baseline):
     report = dict(schemaVersion=1, branches=[], ignoredBranches=[], findings=[])
     def issue(message):
@@ -122,12 +152,13 @@ def inventory(baseline):
                         issue(f'{context}/{tid}: native coverage unknown; source/target requires review')
                     else:
                         # Configuration evidence is never represented as current execution evidence.
-                        if not evidence.get('observedExecution'):
-                            issue(f'{context}/{tid}: no retained execution evidence in reviewed baseline')
-                        if 'unverified' in evidence['scopeAndGaps'].lower() or not extra:
-                            issue(f'{context}/{tid}: review suite scope: {evidence["scopeAndGaps"]}')
+                        if evidence.get('additionalSuiteExpected') and not extra:
+                            issue(f'{context}/{tid}: reviewed additional suite configuration missing')
+                        for finding in coverage_findings(evidence):
+                            issue(f'{context}/{tid}: {finding}')
             except Exception as error:
                 issue(f'{context}: inspection failed: {error}')
+    report['findings'].extend(missing_expected(baseline, [r['name'] for r in repos], report['branches']))
     return report
 
 

@@ -6,6 +6,22 @@ import package_inventory as inventory
 
 
 class InventoryTests(unittest.TestCase):
+    def test_removed_repository_branch_and_target_are_findings(self):
+        baseline = [dict(repository='packaging-one', branch='main', target='old')]
+        self.assertIn('repository missing', inventory.missing_expected(baseline, [], [])[0])
+        self.assertIn('branch missing', inventory.missing_expected(baseline, ['packaging-one'], [])[0])
+        branches = [dict(repository='packaging-one', branch='main', targets=[dict(id='renamed')])]
+        self.assertIn('target missing', inventory.missing_expected(baseline, ['packaging-one'], branches)[0])
+        branches[0]['targets'] = [dict(id='old')]
+        self.assertEqual(inventory.missing_expected(baseline, ['packaging-one'], branches), [])
+
+    def test_known_gap_flagged_even_with_extra_tests_and_execution(self):
+        evidence = dict(coverageStatus='known-gaps', additionalGap='PDF corpus not pinned',
+                        observedExecution=dict(conclusion='SUCCESS'), scopeAndGaps='scope')
+        self.assertIn('PDF corpus not pinned', inventory.coverage_findings(evidence)[0])
+        evidence.update(coverageStatus='reviewed-selection', additionalGap=None)
+        self.assertEqual(inventory.coverage_findings(evidence), [])
+
     def test_source_change_invalidates_reviewed_coverage(self):
         rows = [dict(target="target", sourceVersion="1", distroTestConfiguration="dh_auto_test")]
         self.assertEqual(inventory.reviewed_coverage(rows, "target", "1"), rows[0])

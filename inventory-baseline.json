@@ -22,7 +22,15 @@
         "url": "https://snapshot-fastly.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/a/apache2/apache2_2.4.69-1~deb13u1.debian.tar.xz"
       },
       "reviewedRecipeCommit": "4d808ca400b6ff041ffb33648e60febc232df40f",
-      "executionEvidenceUrls": []
+      "executionEvidenceUrls": [],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "No explicit suite in distro rules",
+        "execution": "unverified"
+      },
+      "additionalGap": "Baseline-only recipe; upstream suite execution remains unverified.",
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-bind9",
@@ -44,7 +52,15 @@
         "url": "https://snapshot-fastly.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/b/bind9/bind9_9.20.30-1~deb13u1.debian.tar.xz"
       },
       "reviewedRecipeCommit": "ae6a836a8a1802409a7473995377940e28d28a05",
-      "executionEvidenceUrls": []
+      "executionEvidenceUrls": [],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro override disables dh_auto_test",
+        "execution": "unverified"
+      },
+      "additionalGap": "Baseline-only recipe; upstream unit/system tests are a coverage gap.",
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-ffmpeg",
@@ -66,7 +82,15 @@
         "url": "https://snapshot-fastly.debian.org/archive/debian/20261030T000000Z/pool/main/f/ffmpeg/ffmpeg_7.1.5-0+deb13u1.debian.tar.xz"
       },
       "reviewedRecipeCommit": "11f6ef8b426f3391e8d7b5fa6365b4c2af948408",
-      "executionEvidenceUrls": []
+      "executionEvidenceUrls": [],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro standard-flavor dh_auto_test/FATE",
+        "execution": "unverified"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-openssh",
@@ -88,7 +112,15 @@
         "url": "https://snapshot-fastly.debian.org/archive/debian/20261030T000000Z/pool/main/o/openssh/openssh_10.0p1-7+deb13u4.debian.tar.xz"
       },
       "reviewedRecipeCommit": "0148b0f291898533ec60282c1fc9e93d8792b8c8",
-      "executionEvidenceUrls": []
+      "executionEvidenceUrls": [],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro unit, compat-tests, keygen and ucf checks",
+        "execution": "unverified"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-packagekit",
@@ -109,7 +141,15 @@
         "url": "https://snapshot-fastly.debian.org/archive/debian/20261030T000000Z/pool/main/p/packagekit/packagekit_1.3.1-1+deb13u1.debian.tar.xz"
       },
       "reviewedRecipeCommit": "37545492403cfca5f87af759e294b2bd9b20a75a",
-      "executionEvidenceUrls": []
+      "executionEvidenceUrls": [],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Meson/dh_auto_test; daemon_tests=false",
+        "execution": "unverified"
+      },
+      "additionalGap": "Baseline-only recipe; daemon tests require additional service setup and remain disabled.",
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-brotli",
@@ -131,7 +171,15 @@
         "url": "https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/brotli/1.0.7-6ubuntu0.1/brotli_1.0.7-6ubuntu0.1.debian.tar.xz"
       },
       "reviewedRecipeCommit": "72dd6b9047ee326fb6887372ae4f1ac15a6bc4cc",
-      "executionEvidenceUrls": []
+      "executionEvidenceUrls": [],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro Python and CMake dh_auto_test",
+        "execution": "unverified"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-c-ares",
@@ -165,7 +213,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-c-ares/actions/runs/44443387497/job/135289641884",
         "https://github.com/getpatched/packaging-c-ares/actions/runs/44443387497/job/135289641769"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Trixie enables CMake tests and excludes distro-selected live cases",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Focal adds three bundled library-init tests; full live DNS and fuzz suites are outside this ordinary-use selection.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-c-ares",
@@ -194,7 +250,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-c-ares/actions/runs/44443387497/job/135289641884",
         "https://github.com/getpatched/packaging-c-ares/actions/runs/44443387497/job/135289641769"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Trixie enables CMake tests and excludes distro-selected live cases",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Focal adds three bundled library-init tests; full live DNS and fuzz suites are outside this ordinary-use selection.",
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-c-ares",
@@ -228,7 +292,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-c-ares/actions/runs/44442691772/job/135287252972",
         "https://github.com/getpatched/packaging-c-ares/actions/runs/44442691772/job/135287253194"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Trixie enables CMake tests and excludes distro-selected live cases",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Focal adds three bundled library-init tests; full live DNS and fuzz suites are outside this ordinary-use selection.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-c-ares",
@@ -257,7 +329,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-c-ares/actions/runs/44442691772/job/135287252972",
         "https://github.com/getpatched/packaging-c-ares/actions/runs/44442691772/job/135287253194"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Trixie enables CMake tests and excludes distro-selected live cases",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Focal adds three bundled library-init tests; full live DNS and fuzz suites are outside this ordinary-use selection.",
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-curl",
@@ -279,7 +359,15 @@
         "url": "https://snapshot.debian.org/file/9fa1a72b0d02518e702f769134015c878717c56c"
       },
       "reviewedRecipeCommit": "8f8a1b7ffc2fa0b28b01dc78f5108740c8044d32",
-      "executionEvidenceUrls": []
+      "executionEvidenceUrls": [],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro test-nonflaky for OpenSSL and GnuTLS",
+        "execution": "unverified"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-expat",
@@ -311,7 +399,15 @@
       "reviewedRecipeCommit": "83e8ce2dbff2d4d9ab814f536595782239710829",
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-expat/actions/runs/44443391806/job/135289650547"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro builds test programs without executing them",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Added strict UTF-8 suite. Bookworm failure blocks merge. UTF-16 suite explicitly rejects distro's non-wchar_t ABI; not run.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-expat",
@@ -344,7 +440,15 @@
       "reviewedRecipeCommit": "83e8ce2dbff2d4d9ab814f536595782239710829",
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-expat/actions/runs/44443391806/job/135289650547"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro builds test programs without executing them",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Added strict UTF-8 suite. Bookworm failure blocks merge. UTF-16 suite explicitly rejects distro's non-wchar_t ABI; not run.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-expat",
@@ -376,7 +480,15 @@
       "reviewedRecipeCommit": "c4e6ec2053d7ee4f9310623d3ea5edea6a9459da",
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-expat/actions/runs/44443394402/job/135289594923"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro builds test programs without executing them",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Added strict UTF-8 suite. Bookworm failure blocks merge. UTF-16 suite explicitly rejects distro's non-wchar_t ABI; not run.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-expat",
@@ -409,7 +521,15 @@
       "reviewedRecipeCommit": "c4e6ec2053d7ee4f9310623d3ea5edea6a9459da",
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-expat/actions/runs/44443394402/job/135289594923"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro builds test programs without executing them",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Added strict UTF-8 suite. Bookworm failure blocks merge. UTF-16 suite explicitly rejects distro's non-wchar_t ABI; not run.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-expat",
@@ -441,7 +561,15 @@
       "reviewedRecipeCommit": "21a0e8030f51ceb00f73d733aff532a539f4cf32",
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-expat/actions/runs/44442144142/job/135285413602"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro builds test programs without executing them",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Added strict UTF-8 suite. Bookworm failure blocks merge. UTF-16 suite explicitly rejects distro's non-wchar_t ABI; not run.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-expat",
@@ -474,7 +602,15 @@
       "reviewedRecipeCommit": "21a0e8030f51ceb00f73d733aff532a539f4cf32",
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-expat/actions/runs/44442144142/job/135285413602"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro builds test programs without executing them",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Added strict UTF-8 suite. Bookworm failure blocks merge. UTF-16 suite explicitly rejects distro's non-wchar_t ABI; not run.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-imagemagick",
@@ -496,7 +632,15 @@
         "url": "https://snapshot.debian.org/archive/debian-security/20261030T000000Z/pool/updates/main/i/imagemagick/imagemagick_7.1.1.43+dfsg1-1+deb13u13.debian.tar.xz"
       },
       "reviewedRecipeCommit": "1386954dd265748ea4905d1eb37b3a9e4a22b24a",
-      "executionEvidenceUrls": []
+      "executionEvidenceUrls": [],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro quantum-build dh_auto_test",
+        "execution": "unverified"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-libarchive",
@@ -526,7 +670,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-libarchive/actions/runs/44443399290/job/135289686828",
         "https://github.com/getpatched/packaging-libarchive/actions/runs/44443399290/job/135289686740"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test gated by check, enabled by shared builder",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-libarchive",
@@ -556,7 +708,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-libarchive/actions/runs/44443399290/job/135289686828",
         "https://github.com/getpatched/packaging-libarchive/actions/runs/44443399290/job/135289686740"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test gated by check, enabled by shared builder",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-libarchive",
@@ -586,7 +746,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-libarchive/actions/runs/44442798442/job/135287653042",
         "https://github.com/getpatched/packaging-libarchive/actions/runs/44442798442/job/135287653085"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test gated by check, enabled by shared builder",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-libarchive",
@@ -616,7 +784,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-libarchive/actions/runs/44442798442/job/135287653042",
         "https://github.com/getpatched/packaging-libarchive/actions/runs/44442798442/job/135287653085"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test gated by check, enabled by shared builder",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-libgit2",
@@ -645,7 +821,15 @@
       "reviewedRecipeCommit": "7e936e7e575b2b8146023bfd40b1a6623a636332",
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-libgit2/actions/runs/44442811047/job/135287697672"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro release-build Clar/CTest",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-libgit2",
@@ -675,7 +859,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-libgit2/actions/runs/44442821555/job/135287735415",
         "https://github.com/getpatched/packaging-libgit2/actions/runs/44442821555/job/135287735328"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro release-build Clar/CTest",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-libgit2",
@@ -705,7 +897,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-libgit2/actions/runs/44442821555/job/135287735415",
         "https://github.com/getpatched/packaging-libgit2/actions/runs/44442821555/job/135287735328"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro release-build Clar/CTest",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-libgit2",
@@ -727,7 +927,15 @@
         "url": "https://archive.ubuntu.com/ubuntu/pool/universe/libg/libgit2/libgit2_0.28.4+dfsg.1-2ubuntu0.1.debian.tar.xz"
       },
       "reviewedRecipeCommit": "f54253c2ad7e5c4c38b00178ea4c744c677577ac",
-      "executionEvidenceUrls": []
+      "executionEvidenceUrls": [],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro release-build Clar/CTest",
+        "execution": "unverified"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-libpng1.6",
@@ -755,7 +963,15 @@
       "reviewedRecipeCommit": "7f92c4ecdd9989159c7c75d4466dac744128aefd",
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-libpng1.6/actions/runs/44443402201/job/135289690691"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test and static pngtest",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-libpng1.6",
@@ -783,7 +999,15 @@
       "reviewedRecipeCommit": "fd29e087ec974cdec14e2f9ceed6d08f6bba7fc5",
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-libpng1.6/actions/runs/44442845566/job/135287822796"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test and static pngtest",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-libxml2",
@@ -819,7 +1043,15 @@
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684239",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684253",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684407"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro build layout does not establish complete corpus coverage",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-libxml2",
@@ -855,7 +1087,15 @@
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684239",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684253",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684407"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro build layout does not establish complete corpus coverage",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-libxml2",
@@ -891,7 +1131,15 @@
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684239",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684253",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443409592/job/135289684407"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro build layout does not establish complete corpus coverage",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-libxml2",
@@ -927,7 +1175,15 @@
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659648",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659632",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659502"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro build layout does not establish complete corpus coverage",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-libxml2",
@@ -963,7 +1219,15 @@
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659648",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659632",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659502"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro build layout does not establish complete corpus coverage",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-libxml2",
@@ -999,7 +1263,15 @@
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659648",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659632",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44443411804/job/135289659502"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro build layout does not establish complete corpus coverage",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-libxml2",
@@ -1035,7 +1307,15 @@
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374902",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374891",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374899"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro build layout does not establish complete corpus coverage",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-libxml2",
@@ -1071,7 +1351,15 @@
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374902",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374891",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374899"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro build layout does not establish complete corpus coverage",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-libxml2",
@@ -1107,7 +1395,15 @@
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374902",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374891",
         "https://github.com/getpatched/packaging-libxml2/actions/runs/44442726490/job/135287374899"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro build layout does not establish complete corpus coverage",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled character/dictionary unit tests. DFSG source has no test/ corpus; full parser-corpus coverage remains a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-poppler",
@@ -1143,7 +1439,15 @@
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289686930",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289686837",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289687108"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-poppler",
@@ -1179,7 +1483,15 @@
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289686930",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289686837",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289687108"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-poppler",
@@ -1215,7 +1527,15 @@
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289686930",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289686837",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443415596/job/135289687108"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-poppler",
@@ -1251,7 +1571,15 @@
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289693056",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289692985",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289693168"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-poppler",
@@ -1287,7 +1615,15 @@
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289693056",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289692985",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289693168"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-poppler",
@@ -1323,7 +1659,15 @@
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289693056",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289692985",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443419937/job/135289693168"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-poppler",
@@ -1357,7 +1701,15 @@
       "reviewedRecipeCommit": "e290f2df5d2c56b4690a43ebdddce970406e18c7",
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-poppler/actions/runs/44443422895/job/135289768491"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-poppler",
@@ -1393,7 +1745,15 @@
         "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582374",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582420",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582334"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-poppler",
@@ -1429,7 +1789,15 @@
         "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582374",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582420",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582334"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-poppler",
@@ -1465,7 +1833,15 @@
         "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582374",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582420",
         "https://github.com/getpatched/packaging-poppler/actions/runs/44442777097/job/135287582334"
-      ]
+      ],
+      "coverageStatus": "known-gaps",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Debian dh_auto_test ignores failures; Focal declares no strict override",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": "Add strict bundled Qt5 date/string/object/UTF unit tests. Full PDF corpus is not pinned; external-corpus suites remain a gap.",
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-python-msgpack",
@@ -1500,7 +1876,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443427464/job/135289754225",
         "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443427464/job/135289754208"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro pytest plus extra forced pure-Python pytest",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-python-msgpack",
@@ -1535,7 +1919,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443427464/job/135289754225",
         "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443427464/job/135289754208"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro pytest plus extra forced pure-Python pytest",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-python-msgpack",
@@ -1570,7 +1962,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443429197/job/135289810113",
         "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443429197/job/135289810184"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro pytest plus extra forced pure-Python pytest",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-python-msgpack",
@@ -1605,7 +2005,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443429197/job/135289810113",
         "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44443429197/job/135289810184"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro pytest plus extra forced pure-Python pytest",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-python-msgpack",
@@ -1640,7 +2048,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44442877783/job/135287926602",
         "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44442877783/job/135287926666"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro pytest plus extra forced pure-Python pytest",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-python-msgpack",
@@ -1675,7 +2091,15 @@
       "executionEvidenceUrls": [
         "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44442877783/job/135287926602",
         "https://github.com/getpatched/packaging-python-msgpack/actions/runs/44442877783/job/135287926666"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro pytest plus extra forced pure-Python pytest",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": true
     },
     {
       "repository": "packaging-tiff",
@@ -1705,7 +2129,15 @@
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762682",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762496",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762435"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test; Trixie forces single test worker",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-tiff",
@@ -1735,7 +2167,15 @@
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762682",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762496",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762435"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test; Trixie forces single test worker",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-tiff",
@@ -1765,7 +2205,15 @@
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762682",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762496",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443433732/job/135289762435"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test; Trixie forces single test worker",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-tiff",
@@ -1795,7 +2243,15 @@
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857240",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857154",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857127"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test; Trixie forces single test worker",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-tiff",
@@ -1825,7 +2281,15 @@
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857240",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857154",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857127"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test; Trixie forces single test worker",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-tiff",
@@ -1855,7 +2319,15 @@
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857240",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857154",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442789/job/135289857127"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test; Trixie forces single test worker",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-tiff",
@@ -1885,7 +2357,15 @@
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859214",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859117",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859105"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test; Trixie forces single test worker",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-tiff",
@@ -1915,7 +2395,15 @@
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859214",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859117",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859105"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test; Trixie forces single test worker",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-tiff",
@@ -1945,7 +2433,15 @@
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859214",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859117",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44443442895/job/135289859105"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test; Trixie forces single test worker",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-tiff",
@@ -1975,7 +2471,15 @@
         "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067391",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067341",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067334"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test; Trixie forces single test worker",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-tiff",
@@ -2005,7 +2509,15 @@
         "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067391",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067341",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067334"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test; Trixie forces single test worker",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     },
     {
       "repository": "packaging-tiff",
@@ -2035,7 +2547,15 @@
         "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067391",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067341",
         "https://github.com/getpatched/packaging-tiff/actions/runs/44442927525/job/135288067334"
-      ]
+      ],
+      "coverageStatus": "reviewed-selection",
+      "nativeCoverage": {
+        "status": "configuration-reviewed",
+        "configuration": "Distro dh_auto_test; Trixie forces single test worker",
+        "execution": "historical-observation-retained"
+      },
+      "additionalGap": null,
+      "additionalSuiteExpected": false
     }
   ]
 }

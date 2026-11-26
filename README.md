@@ -66,12 +66,16 @@ or write token permissions are requested.
 
 The JSON artifact and job summary flag new repositories/branches, inaccessible
 metadata, missing callers, mutable/outdated workflow and tooling pins, and
-coverage requiring review. A finding fails the inventory job, without changing
+coverage requiring review. Reconciliation flags reviewed repositories, branches,
+or targets that disappear or cannot be inspected. A finding fails the inventory job, without changing
 package build or release gates. Scheduled drift callers are inspected separately
 and may intentionally use older pins; those findings require maintainer review.
 
 `inventory-baseline.json` retains the rollout's 65 reviewed target observations,
 source versions, distro configuration, gaps, and historical execution references.
+Explicit `coverageStatus`, `nativeCoverage`, and `additionalGap` fields separate
+reviewed selections from known exclusions. Findings do not infer coverage from
+wording in prose descriptions.
 A matching source version permits displaying historical evidence, never a claim
 that today's commit passed. Missing additional upstream configuration does not
 mean distro tests are absent. Source changes and unreviewed targets are unknown
