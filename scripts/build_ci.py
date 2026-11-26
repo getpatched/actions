@@ -115,6 +115,7 @@ def main():
     from build_environment import offline_resolver_config, runner_ca_bundle
     from package_recipe import download_source_assets, recipe_path
     from platform_policy import apt_source_list, target_profile
+    from test_assets import load_assets, download_assets
 
     target = policy["targetId"]
     profile = target_profile(json.loads((platform / "packages.json").read_text()), target)
@@ -144,12 +145,21 @@ def main():
         smoke_dependencies = list(dict.fromkeys(smoke_dependencies + test_dependencies(
             recipe, target, "compatibility-dependencies.txt", recipe_path)))
     distro_test = (recipe / f"ci/{target}/autopkgtest.sh").is_file()
+    assets_relative = f"ci/{target}/test-assets.json"
+    assets = []
+    if (recipe / assets_relative).exists() or (recipe / assets_relative).is_symlink():
+        assets = load_assets(recipe_path(recipe, assets_relative))
 
     with tempfile.TemporaryDirectory(prefix="package-ci-") as folder:
         temp = Path(folder)
         try:
             stage(reports, "source download and checksum verification")
             download_source_assets(policy, temp / "source")
+            if assets:
+                stage(reports, "test data download and checksum verification")
+                download_assets(assets, temp / "test-assets")
+                (reports / "test-assets.json").write_text(json.dumps(
+                    {"schemaVersion": 1, "verified": True, "assets": assets}, indent=2) + "\n")
             stage(reports, "pinned build environment")
             descriptors = temp / "descriptors"
             descriptors.mkdir()
@@ -169,6 +179,7 @@ def main():
                     *isolated, *offline_resolver_config(temp),
                     *mount(recipe, "/recipe"), *mount(args.policy.resolve(), "/policy.json"),
                     *mount(temp / "source", "/originals"), *mount(script_dir / "build.sh", "/build.sh"),
+                    *(mount(temp / "test-assets", "/test-assets") if assets else []),
                     *mount(script_dir / "upstream_tests.py", "/upstream_tests.py"),
                     *mount(platform / "verification/materialize-package.py", "/materialize-package.py"),
                     image, "bash", "/build.sh", target)

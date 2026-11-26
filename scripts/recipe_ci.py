@@ -132,6 +132,10 @@ def main():
                            for name, binary_version in baseline_overrides.items())):
                 raise ValueError("Baseline binary overrides must pin archive rebuilds of the source version")
             baseline_versions = {name: baseline_overrides.get(name, version) for name in binaries}
+            test_assets_path = f"ci/{target_id}/test-assets.json"
+            if (root / test_assets_path).exists() or (root / test_assets_path).is_symlink():
+                from test_assets import load_assets
+                load_assets(recipe_path(root, test_assets_path))
             matrix.append({"target": target_id, "runner": runner})
             policies[target_id] = {
                 "source": package, "targetId": target_id, "baseVersion": version,

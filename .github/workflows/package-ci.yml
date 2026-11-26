@@ -117,6 +117,7 @@ jobs:
           name: package-test-results-${{ matrix.target }}-${{ github.run_attempt }}
           path: |
             ${{ runner.temp }}/package-reports/upstream-junit.xml
+            ${{ runner.temp }}/package-reports/test-assets.json
             ${{ runner.temp }}/package-reports/autopkgtest-summary.txt
             ${{ runner.temp }}/package-reports/signed-apt.txt
             ${{ runner.temp }}/package-reports/compatibility.txt
@@ -140,6 +141,7 @@ jobs:
               'build and distro tests') stage='build or distro tests' ;;
               'additional upstream tests') stage='additional upstream tests' ;;
               'test configuration') stage='test configuration' ;;
+              'test data download and checksum verification') stage='test data download and checksum verification' ;;
               'source download and checksum verification'|'pinned build environment'|'start build container'|'binary selection'|'sign test APT repository'|'clean install dependency preparation'|'clean install'|'installed package smoke test'|'installed package compatibility'|'installed distro tests'|'paired vulnerability scans') stage="$(cat "$report")" ;;
             esac
           fi
